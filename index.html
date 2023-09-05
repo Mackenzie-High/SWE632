@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <html>
     <head>
-        <title>SWE632 Mapper2</title>
+        <title>SWE632 Mapper</title>
         
         <!-- UiKit -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.16.24/css/uikit.min.css" integrity="sha512-NcmV7IV+qizfpgTaTg1WzUZiBdDZfC4+AEg9Fh845oz6DbZNrYVqv9V09Tvrw49UdhGSISB3VqYMRSUBwOfxOA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -24,13 +21,240 @@
         <div class="uk-width-1-6"></div>
     
         <div class="uk-height-viewport uk-width-2-3">
-            <div class="uk-flex uk-flex-row uk-padding">
-                <button class="ui-button-primary">Options</button>
+            
+            <ul class="uk-subnav uk-subnav-pill uk-width-1-1" uk-switcher>
+                <li><a href="#">Data Sets</a></li>
+                <li><a href="#">Maps</a></li>
+                <li ><a href="#">Map</a></li>
+            </ul>
+            
+            <ul class="uk-switcher uk-margin uk-height-1-1 uk-width-1-1">
+                <li>
+                    
+                    <button class="uk-button uk-button uk-button-default" uk-toggle="target: #add_dataset_model"><span uk-icon="plus" uk-tooltip="ADD DATA SET"></span></button>
+                    
+                    <table class="uk-table  uk-table-striped uk-table-hover">
+                        <thead>
+                            <tr>
+                                <th>Data Set Name</th>
+                                <th>Data Points</th>
+                                <th>Actions</th>
+                            <tr>
+                        </thead>
+                        <tbody>
+                            
+                            <tr>
+                                <td>Gangadaran's Hike Up Old Rag Mountain</td>
+                                <td>14514</td>
+                                <td>
+                                    <button uk-icon="pencil" class="rename"     uk-tooltip="RENAME"></button>
+                                    <button uk-icon="upload" class="upload"     uk-tooltip="UPLOAD"></button>
+                                    <button uk-icon="link"   class="permalink"  uk-tooltip="PERMALINK"></button>
+                                    <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Mariela's Hike Up Old Rag Mountain</td>
+                                <td>49052</td>
+                                <td>
+                                    <button uk-icon="pencil" class="rename"     uk-tooltip="RENAME"></button>
+                                    <button uk-icon="upload" class="upload"     uk-tooltip="UPLOAD"></button>
+                                    <button uk-icon="link"   class="permalink"  uk-tooltip="PERMALINK"></button>
+                                    <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Mackenzie's Hike Up Old Rag Mountain</td>
+                                <td>45675</td>
+                                <td>
+                                    <button uk-icon="pencil" class="rename"     uk-tooltip="RENAME"></button>
+                                    <button uk-icon="upload" class="upload"     uk-tooltip="UPLOAD"></button>
+                                    <button uk-icon="link"   class="permalink"  uk-tooltip="PERMALINK"></button>
+                                    <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Gangadaran's Hike Up Outlook Mountain</td>
+                                <td>3704</td>
+                                <td>
+                                    <button uk-icon="pencil" class="rename"     uk-tooltip="RENAME"></button>
+                                    <button uk-icon="upload" class="upload"     uk-tooltip="UPLOAD"></button>
+                                    <button uk-icon="link"   class="permalink"  uk-tooltip="PERMALINK"></button>
+                                    <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Mariela's Hike Up Outlook Mountain</td>
+                                <td>6554</td>
+                                <td>
+                                    <button uk-icon="pencil" class="rename"     uk-tooltip="RENAME"></button>
+                                    <button uk-icon="upload" class="upload"     uk-tooltip="UPLOAD"></button>
+                                    <button uk-icon="link"   class="permalink"  uk-tooltip="PERMALINK"></button>
+                                    <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Mackenzie's Hike Up Outlook Mountain</td>
+                                <td>68014</td>
+                                <td>
+                                    <button uk-icon="pencil" class="rename"     uk-tooltip="RENAME"></button>
+                                    <button uk-icon="upload" class="upload"     uk-tooltip="UPLOAD"></button>
+                                    <button uk-icon="link"   class="permalink"  uk-tooltip="PERMALINK"></button>
+                                    <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                </td>
+                            </tr>                            
+                            
+                            <tr>
+                                <td>Gangadaran's Hike Up Spruce Mountain</td>
+                                <td>36242</td>
+                                <td>
+                                    <button uk-icon="pencil" class="rename"     uk-tooltip="RENAME"></button>
+                                    <button uk-icon="upload" class="upload"     uk-tooltip="UPLOAD"></button>
+                                    <button uk-icon="link"   class="permalink"  uk-tooltip="PERMALINK"></button>
+                                    <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Mariela's Hike Up Spruce Mountain</td>
+                                <td>15040</td>
+                                <td>
+                                    <button uk-icon="pencil" class="rename"     uk-tooltip="RENAME"></button>
+                                    <button uk-icon="upload" class="upload"     uk-tooltip="UPLOAD"></button>
+                                    <button uk-icon="link"   class="permalink"  uk-tooltip="PERMALINK"></button>
+                                    <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Mackenzie's Hike Up Spruce Mountain</td>
+                                <td>22829</td>
+                                <td>
+                                    <button uk-icon="pencil" class="rename"     uk-tooltip="RENAME"></button>
+                                    <button uk-icon="upload" class="upload"     uk-tooltip="UPLOAD"></button>
+                                    <button uk-icon="link"   class="permalink"  uk-tooltip="PERMALINK"></button>
+                                    <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                </td>
+                            </tr>  
+                            
+                        <tbody>
+                    </table>
+                </li>
+                
+                <li>
+                    
+                    <button class="uk-button uk-button uk-button-default" uk-toggle="target: #add_dataset_to_map_model"><span uk-icon="plus" uk-tooltip="ADD DATA SET TO MAP"></span></button>
+                    
+                    <table class="uk-table  uk-table-striped uk-table-hover">
+                        
+                        <thead>
+                            <tr>
+                                <th>Map Name</th>
+                                <th>Data Set</th>
+                                <th>Color</th>
+                                <th>Actions</th>
+                            <tr>
+                        </thead>
+                            
+                            <tbody>
+                                
+                                <tr>
+                                    <td>Gangadaran's Adventures</td>
+                                    <td>Gangadaran's Hike Up Old Rag Mountain</td>
+                                    <td><input type="color" value="#FF69B4" /></td>
+                                    <td>
+                                        <button uk-icon="play-circle"               uk-tooltip="VIEW MAP"></button>
+                                        <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Gangadaran's Adventures</td>
+                                    <td>Gangadaran's Hike Up Spruce Mountain</td>
+                                    <td><input type="color" value="#FF69B4" /></td>
+                                    <td>
+                                        <button uk-icon="play-circle"               uk-tooltip="VIEW MAP"></button>
+                                        <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Gangadaran's Adventures</td>
+                                    <td>Gangadaran's Hike Up Outlook Mountain</td>
+                                    <td><input type="color" value="#FF69B4" /></td>
+                                    <td>
+                                        <button uk-icon="play-circle"               uk-tooltip="VIEW MAP"></button>
+                                        <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Team Trip to West Virginia</td>
+                                    <td>Gangadaran's Hike Up Spruce Mountain</td>
+                                    <td><input type="color" value="#FF69B4" /></td>
+                                    <td>
+                                        <button uk-icon="play-circle"               uk-tooltip="VIEW MAP"></button>
+                                        <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Team Trip to West Virginia</td>
+                                    <td>Mariela's Hike Up Spruce Mountain</td>
+                                    <td><input type="color" value="#FF69B4" /></td>
+                                    <td>
+                                        <button uk-icon="play-circle"               uk-tooltip="VIEW MAP"></button>
+                                        <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Team Trip to West Virginia</td>
+                                    <td>Mackenzie's Hike Up Spruce Mountain</td>
+                                    <td><input type="color" value="#FF69B4" /></td>
+                                    <td>
+                                        <button uk-icon="play-circle"               uk-tooltip="VIEW MAP"></button>
+                                        <button uk-icon="trash"  class="red delete" uk-tooltip="DELETE"></button>
+                                    </td>
+                                </tr>
+                                
+                            </tbody>
+                    </table>
+                </li>
+                
+                <li id="render_map" class="uk-height-1-1 uk-width-1-1">
+                    
+                    <div class="uk-flex uk-flex-row uk-padding-small uk-padding-remove-top uk-padding-remove-bottom">
+                        <button class="uk-button uk-button-small uk-button-default"><span uk-icon="camera" uk-tooltip="SCREENSHOT"></span></button>
+                        &nbsp;&nbsp;&nbsp;
+                        <button class="uk-button uk-button-small uk-button-default"><span uk-icon="link"   uk-tooltip="PERMALINK"></span></button>
+                    </div>
+                    
+                    <div class="uk-height-1-1 uk-width-1-1 uk-margin uk-object-contain">
+                        <div id="map" class="uk-height-1-1 uk-width-1-1"></div>
+                    </div>
+                </li>
+            </ul>
+            
+            <div id="add_dataset_model" uk-modal>
+                <div class="uk-modal-dialog uk-modal-body">
+                    <h2 class="Add Data Set"></h2>
+                    <button class="uk-button uk-button-danger  uk-modal-close" type="button">CLOSE</button>
+                </div>
             </div>
             
-            <div class="uk-height-1-1 uk-width-1-1 uk-margin">
-                <div id="map" class="uk-height-1-1 uk-width-1-1"></div>
+            <div id="add_dataset_to_map_model" uk-modal>
+                <div class="uk-modal-dialog uk-modal-body">
+                    <h2 class="Add Data Set"></h2>
+                    <button class="uk-button uk-button-danger uk-modal-close" type="button">CLOSE</button>
+                </div>
             </div>
+            
         </div>
         
         <div class="uk-width-1-6"></div>
