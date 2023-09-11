@@ -168,7 +168,7 @@
                                     <td>Gangadaran's Hike Up Old Rag Mountain</td>
                                     <td><input type="color" value="#FF69B4" /></td>
                                     <td>
-                                        <a uk-icon="play-circle"               uk-tooltip="VIEW MAP" uk-switcher-item="2"></a>
+                                        <a uk-icon="location"                  uk-tooltip="VIEW MAP" uk-switcher-item="2"></a>
                                         <a uk-icon="trash"  class="red delete" uk-tooltip="DELETE" href="#unlink-dataset-modal" uk-toggle></a>
                                     </td>
                                 </tr>
@@ -178,7 +178,7 @@
                                     <td>Gangadaran's Hike Up Spruce Mountain</td>
                                     <td><input type="color" value="#FF69B4" /></td>
                                     <td>
-                                        <a uk-icon="play-circle"               uk-tooltip="VIEW MAP" uk-switcher-item="2"></a>
+                                        <a uk-icon="location"                  uk-tooltip="VIEW MAP" uk-switcher-item="2"></a>
                                         <a uk-icon="trash"  class="red delete" uk-tooltip="DELETE" href="#unlink-dataset-modal" uk-toggle></a>
                                     </td>
                                 </tr>
@@ -188,7 +188,7 @@
                                     <td>Gangadaran's Hike Up Outlook Mountain</td>
                                     <td><input type="color" value="#FF69B4" /></td>
                                     <td>
-                                        <a uk-icon="play-circle"               uk-tooltip="VIEW MAP" uk-switcher-item="2"></a>
+                                        <a uk-icon="location"                  uk-tooltip="VIEW MAP" uk-switcher-item="2"></a>
                                         <a uk-icon="trash"  class="red delete" uk-tooltip="DELETE" href="#unlink-dataset-modal" uk-toggle></a>
                                     </td>
                                 </tr>
@@ -198,7 +198,7 @@
                                     <td>Gangadaran's Hike Up Spruce Mountain</td>
                                     <td><input type="color" value="#FF69B4" /></td>
                                     <td>
-                                        <a uk-icon="play-circle"               uk-tooltip="VIEW MAP" uk-switcher-item="2"></a>
+                                        <a uk-icon="location"                  uk-tooltip="VIEW MAP" uk-switcher-item="2"></a>
                                         <a uk-icon="trash"  class="red delete" uk-tooltip="DELETE" href="#unlink-dataset-modal" uk-toggle></a>
                                     </td>
                                 </tr>
@@ -208,7 +208,7 @@
                                     <td>Mariela's Hike Up Spruce Mountain</td>
                                     <td><input type="color" value="#FF69B4" /></td>
                                     <td>
-                                        <a uk-icon="play-circle"               uk-tooltip="VIEW MAP" uk-switcher-item="2"></a>
+                                        <a uk-icon="location"                  uk-tooltip="VIEW MAP" uk-switcher-item="2"></a>
                                         <a uk-icon="trash"  class="red delete" uk-tooltip="DELETE" href="#unlink-dataset-modal" uk-toggle></a>
                                     </td>
                                 </tr>
@@ -218,7 +218,7 @@
                                     <td>Mackenzie's Hike Up Spruce Mountain</td>
                                     <td><input type="color" value="#FF69B4" /></td>
                                     <td>
-                                        <a uk-icon="play-circle"               uk-tooltip="VIEW MAP" uk-switcher-item="2"></a>
+                                        <a uk-icon="location"                  uk-tooltip="VIEW MAP" uk-switcher-item="2"></a>
                                         <a uk-icon="trash"  class="red delete" uk-tooltip="DELETE" href="#unlink-dataset-modal" uk-toggle></a>
                                     </td>
                                 </tr>
@@ -234,7 +234,7 @@
                         &nbsp;&nbsp;&nbsp;
                         <a class="uk-button uk-button-small uk-button-default" uk-icon="link" uk-tooltip="PERMALINK" href="#permalink-map-modal" uk-toggle></a>
                     </div>
-                    
+                    <h4 class="uk-text-center">Gangadaran's Hike Up Old Rag Mountain</h4>
                     <div class="uk-height-1-1 uk-width-1-1 uk-margin uk-object-contain">
                         <div id="map" class="uk-height-1-1 uk-width-1-1"></div>
                     </div>
@@ -247,6 +247,10 @@
                     <div class="uk-form uk-margin">
                         <b>Name</b>
                         <input type="text" class="uk-width-1-1 uk-input">
+                    </div>
+                    <div class="uk-form uk-margin">
+                        <b>Data File</b>
+                        <input type="file" class="uk-width-1-1 uk-input" readonly>
                     </div>
                     <div class="uk-align-right">
                         <a class="uk-button uk-button-primary  uk-modal-close" type="a">CREATE</a>
@@ -265,6 +269,10 @@
                     <div class="uk-form uk-margin">
                         <b>Data Set</b> (name or permalink)
                         <input type="text" class="uk-width-1-1 uk-input">
+                    </div>
+                    <div class="uk-form uk-margin">
+                        <b>Color</b>
+                        <input type="color" value="#FF69B4"/>
                     </div>
                     <div class="uk-align-right">
                         <a class="uk-button uk-button-primary  uk-modal-close" type="a">CREATE</a>
