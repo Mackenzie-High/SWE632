@@ -324,7 +324,8 @@ VueApp.methods.unlinkDataSet = function (event)
 {
     console.log("Unlink Data Set");
     const name = remodel.unlink_dataset_modal.name;
-    remodel.maps = remodel.maps.filter(x => x.name != name);
+    const dataset = remodel.unlink_dataset_modal.dataset;
+    remodel.maps = remodel.maps.filter(x => x.name != name || x.dataset != dataset);
 }
 
 VueApp.methods.screenshot = function (event)
