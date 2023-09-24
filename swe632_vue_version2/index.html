@@ -84,7 +84,7 @@
                                     <td>{{ map.dataset }}</td>
                                     <td><input type="color" v-bind:value="map.color" /></td>
                                     <td>
-                                        <a uk-icon="location"                  uk-tooltip="VIEW MAP" uk-switcher-item="2"></a>
+                                        <a uk-icon="location"                  uk-tooltip="VIEW MAP" uk-switcher-item="2" v-on:click="openMap" v-bind:data-name="map.name"></a>
                                         <a uk-icon="trash"  class="red delete" uk-tooltip="DELETE" href="#unlink_dataset_modal" uk-toggle v-on:click="openUnlinkMap" v-bind:data-name="map.name" v-bind:data-dataset="map.dataset"></a>
                                     </td>
                                 </tr>
@@ -244,7 +244,7 @@
         <div class="uk-width-1-6"></div>
         
         <script src="index.js"></script>
-        <script src="state.js"></script>
+        <script src="mapping.js"></script>
         
     </body>
     
