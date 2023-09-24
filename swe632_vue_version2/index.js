@@ -70,7 +70,11 @@ const model = {
         }
     ],
     
-    current_map: ""
+    current_map: 
+    {
+        uuid: "",
+        name: ""
+    }
 }
 
 // Deeply Reactive Data Model,
@@ -143,7 +147,20 @@ VueApp.methods.openMap = async function (event)
 {
     console.log("Open  Map");
     const name = event.target.parentElement.dataset.name;
-    remodel.current_map = name;
+    
+    document.getElementById("map-switcher-tab").classList.remove("uk-invisible");
+        
+    for (let row of remodel.maps)
+    {
+        if (row.name == name)
+        {
+            remodel.current_map.uuid = row.uuid;
+            remodel.current_map.name = row.name;
+            permalink_map_modal.text = row.name; // TODO
+            permalink_map_modal.href = row.uuid; // TODO
+            break;
+        }
+    }
 }
 
 VueApp.methods.renameDataSet = async function (event)

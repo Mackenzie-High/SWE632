@@ -28,7 +28,7 @@
             <ul class="uk-subnav uk-subnav-pill uk-width-1-1" uk-switcher>
                 <li><a href="#">Data Sets</a></li>
                 <li><a href="#">Maps</a></li>
-                <li ><a href="#">Map</a></li>
+                <li><a href="#" class="uk-invisible" id="map-switcher-tab">Map</a></li>
             </ul>
             
             <ul class="uk-switcher uk-margin uk-height-1-1 uk-width-1-1">
@@ -100,7 +100,7 @@
                         &nbsp;&nbsp;&nbsp;
                         <a class="uk-button uk-button-small uk-button-default" uk-icon="link" uk-tooltip="PERMALINK" href="#permalink_map_modal" uk-toggle></a>
                     </div>
-                    <h4 class="uk-text-center">Gangadaran's Hike Up Old Rag Mountain</h4>
+                    <h4 class="uk-text-center">{{ current_map.name }}</h4>
                     <div class="uk-height-1-1 uk-width-1-1 uk-margin uk-object-contain">
                         <div id="map" class="uk-height-1-1 uk-width-1-1"></div>
                     </div>
