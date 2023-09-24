@@ -51,10 +51,10 @@
                                 <td>{{ dataset.name }}</td>
                                 <td>{{ dataset.points }}</td>
                                 <td>
-                                    <a uk-icon="pencil" class="rename"     uk-tooltip="RENAME" href="#rename_dataset_modal" uk-toggle></a>
-                                    <a uk-icon="upload" class="upload"     uk-tooltip="UPLOAD" href="#upload_dataset_modal" uk-toggle></a>
-                                    <a uk-icon="link"   class="permalink"  uk-tooltip="PERMALINK" href="#permalink_dataset_modal" uk-toggle></a>
-                                    <a uk-icon="trash"  class="red delete" uk-tooltip="DELETE" href="#delete_dataset_modal" uk-toggle></a>
+                                    <a uk-icon="pencil" class="rename"     uk-tooltip="RENAME" href="#rename_dataset_modal" uk-toggle v-on:click="openRenameDataSet" v-bind:data-name="dataset.name"></a>
+                                    <a uk-icon="upload" class="upload"     uk-tooltip="UPLOAD" href="#upload_dataset_modal" uk-toggle v-on:click="openUploadDataSet" v-bind:data-name="dataset.name"></a>
+                                    <a uk-icon="link"   class="permalink"  uk-tooltip="PERMALINK" href="#permalink_dataset_modal" uk-toggle v-on:click="openPermalinkDataSet" v-bind:data-name="dataset.name"></a>
+                                    <a uk-icon="trash"  class="red delete" uk-tooltip="DELETE" href="#delete_dataset_modal" uk-toggle v-on:click="openDeleteDataSet" v-bind:data-name="dataset.name"></a>
                                 </td>
                             </tr>
                             
@@ -85,7 +85,7 @@
                                     <td><input type="color" v-bind:value="map.color" /></td>
                                     <td>
                                         <a uk-icon="location"                  uk-tooltip="VIEW MAP" uk-switcher-item="2"></a>
-                                        <a uk-icon="trash"  class="red delete" uk-tooltip="DELETE" href="#unlink_dataset_modal" uk-toggle></a>
+                                        <a uk-icon="trash"  class="red delete" uk-tooltip="DELETE" href="#unlink_dataset_modal" uk-toggle v-on:click="openUnlinkMap" v-bind:data-name="map.name" v-bind:data-dataset="map.dataset"></a>
                                     </td>
                                 </tr>
                                 

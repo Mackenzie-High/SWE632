@@ -79,11 +79,6 @@ const VueApp = {
     methods: { }
 };
 
-VueApp.methods.addItem = function ()
-{
-
-};
-
 VueApp.methods.datasetFileChanged = function (event)
 {
     const file = event.target.value;
@@ -101,9 +96,57 @@ VueApp.methods.createDataSet = async function (event)
     console.log(row);
 }
 
+VueApp.methods.openRenameDataSet = async function (dataset)
+{
+    console.log("Open Rename DataSet");
+    const name = event.target.parentElement.dataset.name;
+    remodel.rename_dataset_modal.old_name = name;
+    remodel.rename_dataset_modal.new_name = "";
+}
+
+VueApp.methods.openUploadDataSet = async function (event)
+{
+    console.log("Open Upload DataSet");
+    const name = event.target.parentElement.dataset.name;
+    remodel.upload_dataset_modal.name = name;
+}
+
+VueApp.methods.openPermalinkDataSet = async function (event)
+{
+    console.log("Open Permalink DataSet");
+    const name = event.target.parentElement.dataset.name;
+    remodel.permalink_dataset_modal.text = name;
+    remodel.permalink_dataset_modal.href = name; // TODO
+}
+
+VueApp.methods.openDeleteDataSet = async function (event)
+{
+    console.log("Open Delete DataSet");
+    const name = event.target.parentElement.dataset.name;
+    remodel.delete_dataset_modal.name = name;
+}
+
+VueApp.methods.openUnlinkMap = async function (event)
+{
+    console.log("Open Unlink Map");
+    const name = event.target.parentElement.dataset.name;
+    const dataset = event.target.parentElement.dataset.dataset;
+    remodel.unlink_dataset_modal.name = name;
+    remodel.unlink_dataset_modal.dataset = dataset;
+}
+
 VueApp.methods.renameDataSet = async function (event)
 {
-    console.log("Rename DataSet");
+    try
+    {
+        console.log("Rename DataSet");
+        console.log(event);
+    }
+    finally
+    {
+        rename_dataset_modal.old_name = "";
+        rename_dataset_modal.new_name = "";
+    }
 }
 
 VueApp.methods.uploadDataSet = async function (event)
