@@ -54,6 +54,7 @@ const model = {
     datasets: 
     [
         { 
+            uuid: "280c3928-5b10-11ee-ba97-3b233bbe5933",
             name: "Mackenzie's Trip",
             points: 1000
         }
@@ -62,6 +63,7 @@ const model = {
     maps: 
     [
         {
+            uuid: "280c3928-5b10-11ee-ba97-3b233bbe5933",
             name: "Mackenzie's Map",
             dataset: "Mackenzie's Trip",
             color: "#FF69B4"
@@ -146,15 +148,17 @@ VueApp.methods.openMap = async function (event)
 
 VueApp.methods.renameDataSet = async function (event)
 {
-    try
+    console.log("Rename DataSet");
+    console.log(event);
+    const name = remodel.rename_dataset_modal.old_name;
+    
+    for (let row of remodel.datasets)
     {
-        console.log("Rename DataSet");
-        console.log(event);
-    }
-    finally
-    {
-        rename_dataset_modal.old_name = "";
-        rename_dataset_modal.new_name = "";
+        if (row.name == name)
+        {
+            row.name = remodel.rename_dataset_modal.new_name;
+            break;
+        }
     }
 }
 
@@ -171,6 +175,8 @@ VueApp.methods.copyDataSetPermalink = async function (event)
 VueApp.methods.deleteDataSet = async function (event)
 {
     console.log("Delete DataSet");
+    const name = remodel.delete_dataset_modal.name;
+    remodel.datasets = remodel.datasets.filter(x => x.name != name);
 }
 
 VueApp.methods.createMap = async function (event)
@@ -193,6 +199,8 @@ VueApp.methods.copyMapPermalink = async function (event)
 VueApp.methods.unlinkDataSet = async function (event)
 {
     console.log("Unlink Data Set");
+    const name = remodel.unlink_dataset_modal.name;
+    remodel.maps = remodel.maps.filter(x => x.name != name);
 }
 
 VueApp.methods.screenshot = async function (event)
