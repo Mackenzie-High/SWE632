@@ -76,20 +76,18 @@
                                 <th>Actions</th>
                             <tr>
                         </thead>
+                        <tbody>
+                            <tr v-for="map in maps">
+                                <td>{{ map.name }}</td>
+                                <td>{{ map.dataset }}</td>
+                                <td><input type="color" v-model="map.color" @change="changeMapColor(map.uuid, map.color)" /></td>
+                                <td>
+                                    <a uk-icon="location"                  uk-tooltip="VIEW MAP" uk-switcher-item="2" v-on:click="openMap(map.uuid)"></a>
+                                    <a uk-icon="trash"  class="red delete" uk-tooltip="DELETE" href="#unlink_dataset_modal" uk-toggle v-on:click="openUnlinkMap(map.name, map.dataset)"></a>
+                                </td>
+                            </tr>
                             
-                            <tbody>
-                                
-                                <tr v-for="map in maps">
-                                    <td>{{ map.name }}</td>
-                                    <td>{{ map.dataset }}</td>
-                                    <td><input type="color" v-bind:value="map.color" /></td>
-                                    <td>
-                                        <a uk-icon="location"                  uk-tooltip="VIEW MAP" uk-switcher-item="2" v-on:click="openMap(map.name)"></a>
-                                        <a uk-icon="trash"  class="red delete" uk-tooltip="DELETE" href="#unlink_dataset_modal" uk-toggle v-on:click="openUnlinkMap(map.name, map.dataset)"></a>
-                                    </td>
-                                </tr>
-                                
-                            </tbody>
+                        </tbody>
                     </table>
                 </li>
                 

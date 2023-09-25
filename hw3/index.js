@@ -170,18 +170,22 @@ const model = {
         },        
         
     ],
-    
-    current_map: 
-    {
+    current_map: {
         uuid: "",
-        name: ""
-    }
+        name: "",
+        dataset: "",
+        color: "",
+    },
 }
 
 // Deeply Reactive Data Model,
 // so that changes to nested data structures
 // also cause automatic updates to the view.
 const remodel = reactive(model);
+
+window.appData = {
+    map: remodel.current_map,
+};
 
 const VueApp = {
     data() { return remodel; },
@@ -247,22 +251,20 @@ VueApp.methods.openUnlinkMap = function (name, dataset)
     remodel.unlink_dataset_modal.dataset = dataset;
 }
 
-VueApp.methods.openMap = function (name)
-{
+VueApp.methods.openMap = function (uuid) {
     console.log("Open Map");
-
-    for (let row of remodel.maps)
-    {
-        if (row.name == name)
-        {
-            remodel.current_map.uuid = row.uuid;
-            remodel.current_map.name = row.name;
-            remodel.permalink_map_modal.text = row.name; // TODO
-            remodel.permalink_map_modal.href = row.uuid; // TODO
-            break;
+    for (let row of remodel.maps) {
+        if (row.uuid === uuid) {
+        remodel.current_map.uuid = row.uuid;
+        remodel.current_map.name = row.name;
+        remodel.current_map.dataset = row.dataset;
+        remodel.current_map.color = row.color;
+        remodel.permalink_map_modal.text = row.name; // TODO
+        remodel.permalink_map_modal.href = row.uuid; // TODO
+        break;
         }
     }
-    
+
     // Cause the "Map" tab to become visible in the switcher bar,
     // which is located at the top of the page.
     document.getElementById("map-switcher-tab").classList.remove("uk-invisible");
@@ -331,14 +333,32 @@ VueApp.methods.createMap = function (event)
 {
     console.log("Create Map2");
     const name = remodel.add_dataset_to_map_modal.name;
-    console.log(name);
-    const uuid = uuidV4();
     const dataset = remodel.add_dataset_to_map_modal.dataset;
     const color = remodel.add_dataset_to_map_modal.color;
-    const row = { uuid: uuid, name: name, dataset: dataset, color: color }
+    if (!name || !dataset) {
+        console.log("Name or dataset is not defined.");
+        return;
+    }
+    const uuid = uuidV4();
+    const row = {
+        uuid: uuid,
+        name: name.trim(),
+        dataset: dataset.trim(),
+        color: color,
+    };
+
     remodel.maps.push(row);
     console.log(row);
 }
+
+VueApp.methods.changeMapColor = function (uuid, color) {
+    for (let map of remodel.maps) {
+      if (map.uuid === uuid) {
+        map.color = color;
+        break;
+      }
+    }
+};
 
 VueApp.methods.copyMapPermalink = function (event)
 {

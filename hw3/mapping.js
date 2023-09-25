@@ -1,67 +1,82 @@
+var mapData = window.appData.map;
 
-var map = null;
-var polyline = null;
+var map;
+var geoJsonData;
+var geoJsonLayer;
 
-async function main ()
-{
-    console.log("loading");
-    map = L.map('map').setView([38.4755, 38.4755], 13);
+async function main() {
+    console.log("Creating initial map...");
 
-    // var geojsonFeature = {
-    //     "type": "Feature",
-    //     "properties": {
-    //         "name": "Station",
-    //         "amenity": "Train Station",
-    //         "popupContent": "This is where the chunnel starts!"
-    //     }
-    // };
-        
-    // L.geoJSON(geojsonFeature).addTo(map);
-
+    map = L.map('map').setView([38.9, -77.3], 13);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '© OpenStreetMap'}).addTo(map);
-    
-    // create a red polyline from an array of LatLng points
-    var latlngs = [
-        [38.541662, -78.349214],
-        [38.572671, -78.3075003],
-        [38.572403, -78.271279]
-    ];
-    
-    polyline = L.polyline(latlngs, {color: '#FF69B4'}).addTo(map);
-    polyline.bindTooltip("Gangadaran's Hike Up Old Rag Mountain <br> Gangadaran's Adventures");
-    
-    // zoom the map to the polyline
-    map.fitBounds(polyline.getBounds());
-
-    console.log("loaded");
-}
-
-function resize ()
-{
-    console.log("resize");
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
     map.invalidateSize();
-    map.fitBounds(polyline.getBounds());
+
+    console.log("Initial map has been created...");
 }
 
-window.addEventListener("load", main);
+function clearOldLayers() {
+    console.log("Clearing old layers...");
+    if (geoJsonLayer) {
+        map.removeLayer(geoJsonLayer);
+    }
+}
 
-UIkit.util.on("#render_map", "show", resize);
+function getGeoJsonData() {
+    const folderPath = './mapDataSets/'
+    const fileName = mapData.uuid;
+    const fileExtension = '.json';
+    const fileURL = `${folderPath}${fileName}${fileExtension}`;
 
+    return fetch(fileURL)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(data => {
+            geoJsonData = data;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
 
+function plotGeoJsonData() {
+    map.invalidateSize();
+    geoJsonLayer = L.geoJSON(JSON.parse(geoJsonData), {
+        style: {
+            color: mapData.color,
+            weight: 3,
+        },
+        onEachFeature: function (feature, layer) {
+            if (mapData.name && mapData.dataset) {
+                layer.bindTooltip("Map Name: <b>" + mapData.name + "</b><br>Data Set Name: <b>" + mapData.dataset + "</b>");
+            }
+        }
+    }).addTo(map);
 
+    console.log("Should have added the layer...")
 
+    const layerBounds = geoJsonLayer.getBounds();
+    if (layerBounds.isValid()) {
+        map.fitBounds(layerBounds);
+    }
+}
 
+function addNewDataSetToMap() {
+    console.log(mapData)
+    clearOldLayers();
 
+    getGeoJsonData().then(() => {
+        plotGeoJsonData();
+    });
 
+}
 
+window.addEventListener("load", main)
 
-
-
-
-
-
-
-
-
+UIkit.util.on("#render_map", "show", addNewDataSetToMap);
