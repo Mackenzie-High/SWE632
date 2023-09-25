@@ -256,7 +256,7 @@ VueApp.methods.createDataSet = function (event)
         }
         
         const file = remodel.add_dataset_modal.file;
-        const uuid = crypto.randomUUID();
+        const uuid = uuid.v4();
         const points = 1001;
         const row = { uuid: uuid, name: name, points: points };
         remodel.datasets.push(row);
@@ -307,7 +307,7 @@ VueApp.methods.createMap = function (event)
     console.log("Create Map2");
     const name = remodel.add_dataset_to_map_modal.name;
     console.log(name);
-    const uuid = crypto.randomUUID();
+    const uuid = uuid.v4();
     const dataset = remodel.add_dataset_to_map_modal.dataset;
     const color = remodel.add_dataset_to_map_modal.color;
     const row = { uuid: uuid, name: name, dataset: dataset, color: color }
