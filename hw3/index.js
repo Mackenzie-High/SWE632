@@ -220,11 +220,10 @@ VueApp.methods.openUnlinkMap = function (name, dataset)
     remodel.unlink_dataset_modal.dataset = dataset;
 }
 
-VueApp.methods.openMap = function (event)
+VueApp.methods.openMap = function (name)
 {
     console.log("Open Map");
-    const name = event.target.parentElement.dataset.name.trim();
-    console.log(name);
+
     for (let row of remodel.maps)
     {
         if (row.name == name)
