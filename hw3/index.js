@@ -1,6 +1,14 @@
 // Import Vue
 const { createApp, reactive } = Vue;
 
+// Citation: https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
+function uuidV4 ()
+{
+  return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
+}
+
 // Data Model
 const model = {
     
@@ -256,7 +264,7 @@ VueApp.methods.createDataSet = function (event)
         }
         
         const file = remodel.add_dataset_modal.file;
-        const uuid = uuid();
+        const uuid = uuidV4();
         const points = 1001;
         const row = { uuid: uuid, name: name, points: points };
         remodel.datasets.push(row);
@@ -307,7 +315,7 @@ VueApp.methods.createMap = function (event)
     console.log("Create Map2");
     const name = remodel.add_dataset_to_map_modal.name;
     console.log(name);
-    const uuid = uuid();
+    const uuid = uuidV4();
     const dataset = remodel.add_dataset_to_map_modal.dataset;
     const color = remodel.add_dataset_to_map_modal.color;
     const row = { uuid: uuid, name: name, dataset: dataset, color: color }
@@ -340,14 +348,6 @@ VueApp.methods.screenshot = function (event)
       link.click();
     }
     download("data:text/html,HelloWorld!", "screenshot.png");
-}
-
-// Citation: https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
-function uuid ()
-{
-  return "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c =>
-    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-  );
 }
 
 // Go for launch!
