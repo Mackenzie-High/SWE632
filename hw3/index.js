@@ -9,13 +9,22 @@ function uuidV4 ()
   );
 }
 
+function resetFileUploads ()
+{
+    document.getElementById("file_upload_1").value = null;
+    document.getElementById("file_upload_2").value = null;
+}
+
+// When a user selects a file to upload, the file is immediately read,
+// and this dict is populated with the GeoJSON from the file.
+var upload = { };
+
 // Data Model
 const model = {
     
     add_dataset_modal: 
     {
-        name: "",
-        file: "",
+        name: ""
     },
     
     add_dataset_to_map_modal:
@@ -181,9 +190,26 @@ const VueApp = {
 
 VueApp.methods.datasetFileChanged = function (event)
 {
-    const file = event.target.value;
-    console.log(file);
-    remodel.add_dataset_modal.file = file;
+    function parse (data)
+    {
+        const geoJSON = JSON.parse(data);
+        console.log(geoJSON);
+    }
+    
+    const reader = new FileReader();
+    reader.onload = (e) => parse(e.target.result);
+
+    for (let file of event.target.files) 
+    {
+       reader.readAsText(file);
+    }
+}
+
+
+VueApp.methods.openCreateDataSet = function (name)
+{
+    console.log("Open Create DataSet");
+    resetFileUploads();
 }
 
 VueApp.methods.openRenameDataSet = function (name)
@@ -196,6 +222,7 @@ VueApp.methods.openUploadDataSet = function (name)
 {
     console.log("Open Upload DataSet");
     remodel.upload_dataset_modal.name = name;
+    resetFileUploads();
 }
 
 VueApp.methods.openPermalinkDataSet = function (name)
@@ -253,8 +280,7 @@ VueApp.methods.createDataSet = function (event)
             UIkit.modal.alert('ERROR: You must specify a name!');
             return;
         }
-        
-        const file = remodel.add_dataset_modal.file;
+                
         const uuid = uuidV4();
         const points = 1001;
         const row = { uuid: uuid, name: name, points: points };
