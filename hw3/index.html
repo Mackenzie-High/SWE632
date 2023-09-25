@@ -116,7 +116,7 @@
                     </div>
                     <div class="uk-form uk-margin">
                         <b>Data File</b>
-                        <input type="file" class="uk-width-1-1 uk-input" v-on:change="datasetFileChanged" readonly>
+                        <input type="file" accept="application/JSON" class="uk-width-1-1 uk-input" v-on:change="datasetFileChanged" readonly>
                     </div>
                     <div class="uk-align-right">
                         <a class="uk-button uk-button-primary uk-modal-close" type="a" v-on:click="createDataSet">CREATE</a>
@@ -170,7 +170,7 @@
                     <h2 class="">Upload Data Set</h2>
                     <div class="uk-form uk-margin">
                         <b>Data File</b>
-                        <input type="file" class="uk-width-1-1 uk-input" readonly>
+                        <input type="file" accept="application/JSON" class="uk-width-1-1 uk-input" readonly>
                     </div>
                     <div class="uk-align-right">
                         <a class="uk-button uk-button-primary  uk-modal-close" type="a" v-on:click="uploadDataSet">UPLOAD</a>
