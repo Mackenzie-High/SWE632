@@ -226,6 +226,13 @@ VueApp.methods.openDeleteDataSet = function (name) {
   console.log(event.target.parentElement);
 };
 
+VueApp.methods.openCreateMap = function (name) {
+  console.log("Open Create Map");
+  remodel.add_dataset_to_map_modal.name = "";
+  remodel.add_dataset_to_map_modal.dataset = "";
+  remodel.add_dataset_to_map_modal.color = "#FF69B4";
+};
+
 VueApp.methods.openUnlinkMap = function (name, dataset) {
   console.log("Open Unlink Map");
   remodel.unlink_dataset_modal.name = name;
@@ -259,6 +266,11 @@ VueApp.methods.createDataSet = function (event) {
     if ("" == name) {
       UIkit.modal.alert("ERROR: You must specify a name!");
       return;
+    }
+    
+    if (remodel.datasets.some(x => x.name == name)) {
+        UIkit.modal.alert(`ERROR: Duplicate dataset: ${name}`);
+        return;    
     }
 
     const uuid = uuidV4();
@@ -300,14 +312,31 @@ VueApp.methods.deleteDataSet = function (event) {
 };
 
 VueApp.methods.createMap = function (event) {
-  console.log("Create Map2");
-  const name = remodel.add_dataset_to_map_modal.name;
-  const dataset = remodel.add_dataset_to_map_modal.dataset;
+  console.log("Create Map");
+  const name = remodel.add_dataset_to_map_modal.name.trim();
+  const dataset = remodel.add_dataset_to_map_modal.dataset.trim();
   const color = remodel.add_dataset_to_map_modal.color;
-  if (!name || !dataset) {
-    console.log("Name or dataset is not defined.");
-    return;
+  
+  if (name == "") {
+      UIkit.modal.alert("ERROR: You must specify a map name!");
+      return;
   }
+
+  if (dataset == "") {
+      UIkit.modal.alert("ERROR: You must specify a dataset!");
+      return;
+  }
+  
+  if (remodel.datasets.some(x => x.name == dataset) == false) {
+      UIkit.modal.alert(`ERROR: No such dataset: ${dataset}`);
+      return;    
+  }
+  
+  if (remodel.maps.some(x => x.name == name && x.dataset == dataset)) {
+      UIkit.modal.alert(`ERROR: duplicate dataset for map: ${name}`);
+      return;    
+  }
+  
   const uuid = uuidV4();
   const row = {
     uuid: uuid,
