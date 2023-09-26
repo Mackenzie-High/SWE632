@@ -90,7 +90,9 @@
                     </thead>
                     <tbody>
                         <tr v-for="map in maps">
-                            <td>{{ map.name }}</td>
+                            <td>
+                                <a uk-switcher-item="2" v-on:click="openMap(map.uuid)">{{ map.name }}</a>
+                            </td>
                             <td>{{ map.dataset }}</td>
                             <td><input type="color" v-model="map.color" @change="changeMapColor(map.uuid, map.color)" />
                             </td>
