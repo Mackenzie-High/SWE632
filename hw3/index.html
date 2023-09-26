@@ -46,8 +46,9 @@
                 <a class="uk-button uk-button-default" uk-toggle="target: #add_dataset_modal"
                     v-on:click="openCreateDataSet"><span uk-icon="plus" uk-tooltip="ADD DATA SET"></span></a>
 
-                <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #help_modal">
+                <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #datasets_help_modal">
                     <span uk-icon="info" uk-tooltip="HELP"></span></a>
+                    
                 <table class="uk-table  uk-table-striped uk-table-hover">
                     <thead>
                         <tr>
@@ -79,6 +80,10 @@
             <li>
                 <a class="uk-button uk-button uk-button-default" uk-toggle="target: #add_dataset_to_map_modal"><span
                         uk-icon="plus" uk-tooltip="ADD DATA SET TO MAP"></span></a>
+                        
+                <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #maps_help_modal">
+                    <span uk-icon="info" uk-tooltip="HELP"></span></a>
+                        
                 <table class="uk-table  uk-table-striped uk-table-hover">
                     <thead>
                         <tr>
@@ -108,14 +113,22 @@
             </li>
 
             <li id="render_map" class="uk-height-1-1 uk-width-1-1">
-                <div class="uk-flex uk-flex-row uk-padding-small uk-padding-remove-top uk-padding-remove-bottom">
-                    <a class="uk-button uk-button-small uk-button-default"><span uk-icon="camera"
-                            uk-tooltip="SCREENSHOT" v-on:click="screenshot"></span></a>
-                    &nbsp;&nbsp;&nbsp;
-                    <a class="uk-button uk-button-small uk-button-default" uk-icon="link" uk-tooltip="PERMALINK"
-                        href="#permalink_map_modal" uk-toggle></a>
+                <div class="uk-flex uk-flex-row uk-flex-between uk-padding-remove uk-margin-remove">
+                
+                    <div>
+                        <a class="uk-button uk-button-default uk-button-default"><span uk-icon="camera"
+                                uk-tooltip="SCREENSHOT" v-on:click="screenshot"></span></a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a class="uk-button uk-button-default uk-button-default" uk-icon="link" uk-tooltip="PERMALINK"
+                            href="#permalink_map_modal" uk-toggle></a>
+                    </div>
+                        
+                    <div>
+                        <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #map_help_modal">
+                            <span uk-icon="info" uk-tooltip="HELP"></span></a>
+                    </div>
                 </div>
-                <h4 class="uk-text-center">{{ current_map.name }}</h4>
+                <h4 class="uk-text-center uk-padding-remove uk-margin-remove">{{ current_map.name }}</h4>
                 <div class="uk-height-1-1 uk-width-1-1 uk-margin uk-object-contain">
                     <div id="map" class="uk-height-1-1 uk-width-1-1"></div>
                 </div>
@@ -267,11 +280,11 @@
             </div>
         </div>
         
-        <div id="help_modal" uk-modal>
+        <div id="datasets_help_modal" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="uk-modal-title">Help Documentation</h2>
                 <p>
-                TODO
+                TODO: datasets
                 </p>
                 <p class="uk-text-right">
                     <button class="uk-button uk-button-danger uk-modal-close" type="button">CLOSE</button>
@@ -279,6 +292,30 @@
             </div>
         </div>
 
+        <div id="maps_help_modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="uk-modal-title">Help Documentation</h2>
+                <p>
+                TODO: maps
+                </p>
+                <p class="uk-text-right">
+                    <button class="uk-button uk-button-danger uk-modal-close" type="button">CLOSE</button>
+                </p>
+            </div>
+        </div>
+        
+        <div id="map_help_modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="uk-modal-title">Help Documentation</h2>
+                <p>
+                TODO: map
+                </p>
+                <p class="uk-text-right">
+                    <button class="uk-button uk-button-danger uk-modal-close" type="button">CLOSE</button>
+                </p>
+            </div>
+        </div>
+        
     </div>
 
     <div class="uk-width-1-6"></div>
