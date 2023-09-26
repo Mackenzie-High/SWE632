@@ -63,56 +63,47 @@ const model = {
   datasets: [
     {
       uuid: "83c31fc6-4165-4734-982f-e90b9df85f07",
-      name: "Gangadaran's Hike Up Old Rag Mountain",
-      points: 14514,
+      name: "Gangadaran's Hike Up Old Rag Mountain"
     },
 
     {
       uuid: "d586ffc7-6f0d-4d6c-8163-86b16d31fe0b",
-      name: "Mariela's Hike Up Old Rag Mountain",
-      points: 49052,
+      name: "Mariela's Hike Up Old Rag Mountain"
     },
 
     {
       uuid: "0fd1c9c2-ece2-4abf-9dc7-b1ef5ff2ad52",
-      name: "Mackenzie's Hike Up Old Rag Mountain",
-      points: 45675,
+      name: "Mackenzie's Hike Up Old Rag Mountain"
     },
 
     {
       uuid: "18736b59-3b49-422f-9bfc-130b68910c23",
-      name: "Gangadaran's Hike Up Outlook Mountain",
-      points: 3704,
+      name: "Gangadaran's Hike Up Outlook Mountain"
     },
 
     {
       uuid: "1aa5b13d-21c4-482e-b2de-69a9e832457c",
-      name: "Mariela's Hike Up Outlook Mountain",
-      points: 6554,
+      name: "Mariela's Hike Up Outlook Mountain"
     },
 
     {
       uuid: "2ca4ed6f-c189-4c0a-bbca-39c71ac33944",
-      name: "Mackenzie's Hike Up Outlook Mountain",
-      points: 68014,
+      name: "Mackenzie's Hike Up Outlook Mountain"
     },
 
     {
       uuid: "b5cc142a-6d0f-4b12-b562-d9375dd22178",
-      name: "Gangadaran's Hike Up Spruce Mountain",
-      points: 36242,
+      name: "Gangadaran's Hike Up Spruce Mountain"
     },
 
     {
       uuid: "a65da525-c9be-499b-9dbd-6e42b62e2575",
-      name: "Mariela's Hike Up Spruce Mountain",
-      points: 15040,
+      name: "Mariela's Hike Up Spruce Mountain"
     },
 
     {
       uuid: "d35a8af6-46ce-4b1e-9883-c2bc8b2eea77",
-      name: "Mackenzie's Hike Up Spruce Mountain",
-      points: 22829,
+      name: "Mackenzie's Hike Up Spruce Mountain"
     },
   ],
 
@@ -274,8 +265,7 @@ VueApp.methods.createDataSet = function (event) {
     }
 
     const uuid = uuidV4();
-    const points = 1001;
-    const row = { uuid: uuid, name: name, points: points };
+    const row = { uuid: uuid, name: name };
     remodel.datasets.push(row);
     console.log(row);
   } finally {

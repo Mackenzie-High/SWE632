@@ -52,15 +52,13 @@
                 <table class="uk-table  uk-table-striped uk-table-hover">
                     <thead>
                         <tr>
-                            <th>Data Set Name</th>
-                            <th>Data Points</th>
-                            <th>Actions</th>
+                            <th class="uk-width-5-6">Data Set Name</th>
+                            <th class="uk-width-1-6">Actions</th>
                         <tr>
                     </thead>
                     <tbody>
                         <tr v-for="dataset in datasets">
                             <td>{{ dataset.name }}</td>
-                            <td>{{ dataset.points }}</td>
                             <td>
                                 <a uk-icon="pencil" class="rename" uk-tooltip="RENAME" href="#rename_dataset_modal"
                                     uk-toggle v-on:click="openRenameDataSet(dataset.name)"></a>
