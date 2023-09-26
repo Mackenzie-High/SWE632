@@ -268,6 +268,9 @@ VueApp.methods.createDataSet = function (event) {
     const row = { uuid: uuid, name: name };
     remodel.datasets.push(row);
     console.log(row);
+    
+    UIkit.notification({message: 'Successfully created dataset!', status: 'success'});
+    
   } finally {
     remodel.add_dataset_modal.name = "";
     remodel.add_dataset_modal.file = "";
@@ -337,6 +340,8 @@ VueApp.methods.createMap = function (event) {
 
   remodel.maps.push(row);
   console.log(row);
+  
+  UIkit.notification({message: 'Dataset added to map!', status: 'success'});
 };
 
 VueApp.methods.changeMapColor = function (uuid, color) {
