@@ -156,6 +156,7 @@ const model = {
     dataset: "",
     color: "",
   },
+  currentMapData: []
 };
 
 // Deeply Reactive Data Model,
@@ -164,7 +165,7 @@ const model = {
 const remodel = reactive(model);
 
 window.appData = {
-  map: remodel.current_map,
+  map: remodel.currentMapData,
 };
 
 const VueApp = {
@@ -230,17 +231,17 @@ VueApp.methods.openUnlinkMap = function (name, dataset) {
   remodel.unlink_dataset_modal.dataset = dataset;
 };
 
-VueApp.methods.openMap = function (uuid) {
+VueApp.methods.openMap = function (name) {
   console.log("Open Map");
   for (let row of remodel.maps) {
-    if (row.uuid === uuid) {
-      remodel.current_map.uuid = row.uuid;
+    if (row.name === name) {
+      // remodel.current_map.uuid = row.uuid;
       remodel.current_map.name = row.name;
-      remodel.current_map.dataset = row.dataset;
-      remodel.current_map.color = row.color;
+      // remodel.current_map.dataset = row.dataset;
+      // remodel.current_map.color = row.color;
+      remodel.currentMapData.push(row);
       remodel.permalink_map_modal.text = row.name; // TODO
       remodel.permalink_map_modal.href = row.uuid; // TODO
-      break;
     }
   }
 

@@ -1,8 +1,8 @@
 var mapData = window.appData.map;
 
 var map;
-var geoJsonData;
 var geoJsonLayer;
+var geoJsonLayers = [];
 
 async function main() {
   console.log("Creating initial map...");
@@ -18,15 +18,19 @@ async function main() {
 }
 
 function clearOldLayers() {
+  console.log(geoJsonLayers)
   console.log("Clearing old layers...");
-  if (geoJsonLayer) {
-    map.removeLayer(geoJsonLayer);
-  }
+  geoJsonLayers.forEach((layer) => {
+    map.removeLayer(layer);
+  });
+  geoJsonLayers.length = 0;
+
+  console.log(geoJsonLayers);
 }
 
-function getGeoJsonData() {
+function getGeoJsonData(datasetData) {
   const folderPath = "./mapDataSets/";
-  const fileName = mapData.uuid;
+  const fileName = datasetData.uuid;
   const fileExtension = ".json";
   const fileURL = `${folderPath}${fileName}${fileExtension}`;
 
@@ -38,48 +42,58 @@ function getGeoJsonData() {
       return response.text();
     })
     .then((data) => {
-      geoJsonData = data;
+      return data;
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
 
-function plotGeoJsonData() {
+function plotGeoJsonData(datasetData, geoJsonData) {
   map.invalidateSize();
   geoJsonLayer = L.geoJSON(JSON.parse(geoJsonData), {
     style: {
-      color: mapData.color,
+      color: datasetData.color,
       weight: 3,
     },
     onEachFeature: function (feature, layer) {
-      if (mapData.name && mapData.dataset) {
+      if (datasetData.name && datasetData.dataset) {
         layer.bindTooltip(
           "Map Name: <b>" +
-            mapData.name +
+            datasetData.name +
             "</b><br>Data Set Name: <b>" +
-            mapData.dataset +
+            datasetData.dataset +
             "</b>"
         );
       }
     },
   }).addTo(map);
 
+  geoJsonLayers.push(geoJsonLayer);
   console.log("Should have added the layer...");
-
-  const layerBounds = geoJsonLayer.getBounds();
-  if (layerBounds.isValid()) {
-    map.fitBounds(layerBounds);
-  }
 }
 
-function addNewDataSetToMap() {
+function fitAllBounds() {
+  const combinedBounds = geoJsonLayers.reduce((bounds, layer) => {
+    return bounds.extend(layer.getBounds());
+  }, L.latLngBounds());
+
+  map.fitBounds(combinedBounds);
+}
+
+async function addNewDataSetToMap() {
   console.log(mapData);
   clearOldLayers();
 
-  getGeoJsonData().then(() => {
-    plotGeoJsonData();
-  });
+  const promises = [];0
+  for (let dataset of mapData) {
+    const promise = getGeoJsonData(dataset).then((geoJsonData) => {
+      plotGeoJsonData(dataset, geoJsonData);
+    });
+    promises.push(promise);
+  }
+  await Promise.all(promises);
+  fitAllBounds();
 }
 
 window.addEventListener("load", main);
