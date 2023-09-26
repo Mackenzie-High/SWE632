@@ -45,6 +45,9 @@
             <li>
                 <a class="uk-button uk-button-default" uk-toggle="target: #add_dataset_modal"
                     v-on:click="openCreateDataSet"><span uk-icon="plus" uk-tooltip="ADD DATA SET"></span></a>
+
+                <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #help_modal">
+                    <span uk-icon="info" uk-tooltip="HELP"></span></a>
                 <table class="uk-table  uk-table-striped uk-table-hover">
                     <thead>
                         <tr>
@@ -259,6 +262,18 @@
                         v-on:click="unlinkDataSet">REMOVE</a>
                     <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
                 </div>
+            </div>
+        </div>
+        
+        <div id="help_modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="uk-modal-title">Help Documentation</h2>
+                <p>
+                TODO
+                </p>
+                <p class="uk-text-right">
+                    <button class="uk-button uk-button-danger uk-modal-close" type="button">CLOSE</button>
+                </p>
             </div>
         </div>
 
