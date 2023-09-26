@@ -141,7 +141,7 @@
                     <input type="text" class="uk-width-1-1 uk-input" v-model="add_dataset_modal.name">
                 </div>
                 <div class="uk-form uk-margin">
-                    <b>Data File</b>
+                    <b>Data File</b> (<span class="red"> *.json</span> files only )
                     <input id="file_upload_1" type="file" accept="application/JSON" class="uk-width-1-1 uk-input"
                         v-on:change="datasetFileChanged" readonly>
                 </div>
@@ -199,7 +199,7 @@
             <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="">Upload Data Set</h2>
                 <div class="uk-form uk-margin">
-                    <b>Data File</b>
+                    <b>Data File</b> (<span class="red"> *.json</span> files only )
                     <input id="file_upload_2" type="file" accept="application/JSON" class="uk-width-1-1 uk-input"
                         v-on:change="datasetFileChanged" readonly>
                 </div>
