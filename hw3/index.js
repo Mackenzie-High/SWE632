@@ -38,7 +38,13 @@ const model = {
   },
 
   upload_dataset_modal: {
+    name: "",
+    uuid: "",
     file: "",
+    geoJsonData: null,
+  },
+
+  dataToBeUploadedTemp: {
   },
 
   permalink_dataset_modal: {
@@ -60,103 +66,83 @@ const model = {
     dataset: "",
   },
 
-  datasets: [
-    {
-      uuid: "83c31fc6-4165-4734-982f-e90b9df85f07",
-      name: "Gangadaran's Hike Up Old Rag Mountain"
-    },
-
-    {
-      uuid: "d586ffc7-6f0d-4d6c-8163-86b16d31fe0b",
-      name: "Mariela's Hike Up Old Rag Mountain"
-    },
-
-    {
-      uuid: "0fd1c9c2-ece2-4abf-9dc7-b1ef5ff2ad52",
-      name: "Mackenzie's Hike Up Old Rag Mountain"
-    },
-
-    {
-      uuid: "18736b59-3b49-422f-9bfc-130b68910c23",
-      name: "Gangadaran's Hike Up Outlook Mountain"
-    },
-
-    {
-      uuid: "1aa5b13d-21c4-482e-b2de-69a9e832457c",
-      name: "Mariela's Hike Up Outlook Mountain"
-    },
-
-    {
-      uuid: "2ca4ed6f-c189-4c0a-bbca-39c71ac33944",
-      name: "Mackenzie's Hike Up Outlook Mountain"
-    },
-
-    {
-      uuid: "b5cc142a-6d0f-4b12-b562-d9375dd22178",
-      name: "Gangadaran's Hike Up Spruce Mountain"
-    },
-
-    {
-      uuid: "a65da525-c9be-499b-9dbd-6e42b62e2575",
-      name: "Mariela's Hike Up Spruce Mountain"
-    },
-
-    {
-      uuid: "d35a8af6-46ce-4b1e-9883-c2bc8b2eea77",
-      name: "Mackenzie's Hike Up Spruce Mountain"
-    },
-  ],
-
-  maps: [
-    {
-      uuid: "ed035453-8318-4bbf-9697-445c72d351f8",
-      name: "Gangadaran's Adventures",
-      dataset: "Gangadaran's Hike Up Old Rag Mountain",
-      color: "#FF69B4",
-    },
-
-    {
+  datasets: {
+    "2fc96bb8-d532-43a8-8b2d-3e6ac0fb66ba" : {
       uuid: "2fc96bb8-d532-43a8-8b2d-3e6ac0fb66ba",
-      name: "Gangadaran's Adventures",
-      dataset: "Gangadaran's Hike Up Spruce Mountain",
+      name: "Gangadaran's Hike Up Old Rag Mountain",
       color: "#FF69B4",
     },
-
-    {
-      uuid: "570460dc-d3ec-42af-869b-a1302bef73b3",
-      name: "Gangadaran's Adventures",
-      dataset: "Gangadaran's Hike Up Outlook Mountain",
+    "d586ffc7-6f0d-4d6c-8163-86b16d31fe0b" : {
+      uuid: "d586ffc7-6f0d-4d6c-8163-86b16d31fe0b",
+      name: "Mariela's Hike Up Old Rag Mountain",
       color: "#FF69B4",
     },
-
-    {
-      uuid: "bda88500-9df2-4e29-bc97-f374e215d632",
-      name: "Team Trip to West Virginia",
-      dataset: "Gangadaran's Hike Up Spruce Mountain",
+    "0fd1c9c2-ece2-4abf-9dc7-b1ef5ff2ad52" : {
+      uuid: "0fd1c9c2-ece2-4abf-9dc7-b1ef5ff2ad52",
+      name: "Mackenzie's Hike Up Old Rag Mountain",
       color: "#FF69B4",
     },
-
-    {
-      uuid: "8dbd57eb-59c3-4da1-874b-0c53a0bf8b77",
-      name: "Team Trip to West Virginia",
-      dataset: "Mariela's Hike Up Spruce Mountain",
-      color: "#FF69B4",
-    },
-
-    {
+    "5395f7fe-4e60-4096-84aa-c27d07d7002b" : {
       uuid: "5395f7fe-4e60-4096-84aa-c27d07d7002b",
-      name: "Team Trip to West Virginia",
-      dataset: "Mackenzie's Hike Up Spruce Mountain",
+      name: "Gangadaran's Hike Up Outlook Mountain",
       color: "#FF69B4",
     },
-  ],
+    "1aa5b13d-21c4-482e-b2de-69a9e832457c" : {
+      uuid: "1aa5b13d-21c4-482e-b2de-69a9e832457c",
+      name: "Mariela's Hike Up Outlook Mountain",
+      color: "#FF69B4",
+    },
+    "2ca4ed6f-c189-4c0a-bbca-39c71ac33944" : {
+      uuid: "2ca4ed6f-c189-4c0a-bbca-39c71ac33944",
+      name: "Mackenzie's Hike Up Outlook Mountain",
+      color: "#FF69B4",
+    },
+    "8dbd57eb-59c3-4da1-874b-0c53a0bf8b77" : {
+      uuid: "8dbd57eb-59c3-4da1-874b-0c53a0bf8b77",
+      name: "Gangadaran's Hike Up Spruce Mountain",
+      color: "#FF69B4",
+    },
+    "a65da525-c9be-499b-9dbd-6e42b62e2575" : {
+      uuid: "a65da525-c9be-499b-9dbd-6e42b62e2575",
+      name: "Mariela's Hike Up Spruce Mountain",
+      color: "#FF69B4",
+    },
+    "d35a8af6-46ce-4b1e-9883-c2bc8b2eea77" : {
+      uuid: "d35a8af6-46ce-4b1e-9883-c2bc8b2eea77",
+      name: "Mackenzie's Hike Up Spruce Mountain",
+      color: "#FF69B4",
+    },
+  },
+
+  maps: {
+    "Gangadaran's Adventures":
+    {
+      name: "Gangadaran's Adventures",
+      datasetList : [
+        "2fc96bb8-d532-43a8-8b2d-3e6ac0fb66ba",
+        "8dbd57eb-59c3-4da1-874b-0c53a0bf8b77",
+        "5395f7fe-4e60-4096-84aa-c27d07d7002b",
+      ],
+    },
+    "Team Trip to West Virginia":
+    {
+      name: "Team Trip to West Virginia",
+      datasetList: [
+        "8dbd57eb-59c3-4da1-874b-0c53a0bf8b77",
+        "d35a8af6-46ce-4b1e-9883-c2bc8b2eea77",
+        "a65da525-c9be-499b-9dbd-6e42b62e2575",
+      ],
+    },
+  },
+
   current_map: {
     uuid: "",
     name: "",
     dataset: "",
     color: "",
   },
-  currentMapData: []
+
+  currentMapData: [],
 };
 
 // Deeply Reactive Data Model,
@@ -178,6 +164,7 @@ const VueApp = {
 VueApp.methods.datasetFileChanged = function (event) {
   function parse(data) {
     const geoJSON = JSON.parse(data);
+    remodel.dataToBeUploadedTemp = geoJSON;
     console.log(geoJSON);
   }
 
@@ -199,9 +186,10 @@ VueApp.methods.openRenameDataSet = function (name) {
   remodel.rename_dataset_modal.old_name = name;
 };
 
-VueApp.methods.openUploadDataSet = function (name) {
+VueApp.methods.openUploadDataSet = function (name, uuid) {
   console.log("Open Upload DataSet");
   remodel.upload_dataset_modal.name = name;
+  remodel.upload_dataset_modal.uuid = uuid;
   resetFileUploads();
 };
 
@@ -232,18 +220,16 @@ VueApp.methods.openUnlinkMap = function (name, dataset) {
 };
 
 VueApp.methods.openMap = function (name) {
-  console.log("Open Map");
-  for (let row of remodel.maps) {
-    if (row.name === name) {
-      // remodel.current_map.uuid = row.uuid;
-      remodel.current_map.name = row.name;
-      // remodel.current_map.dataset = row.dataset;
-      // remodel.current_map.color = row.color;
-      remodel.currentMapData.push(row);
-      remodel.permalink_map_modal.text = row.name; // TODO
-      remodel.permalink_map_modal.href = row.uuid; // TODO
-    }
+  remodel.currentMapData.length = 0;
+  console.log("Clearing old map data... opening map...");
+
+  remodel.current_map.name = name;
+  const dataSetInfo = [];
+  for (uuid in remodel.maps[name].datasetList) {
+    dataSetInfo.push(remodel.datasets[remodel.maps[name].datasetList[uuid]]);
   }
+  remodel.currentMapData[name] = dataSetInfo;
+  console.log(remodel.currentMapData);
 
   // Cause the "Map" tab to become visible in the switcher bar,
   // which is located at the top of the page.
@@ -260,21 +246,26 @@ VueApp.methods.createDataSet = function (event) {
       return;
     }
     
-    if (remodel.datasets.some(x => x.name == name)) {
+    for (dataset in remodel.datasets) {
+      if (dataset.name == name){
         UIkit.modal.alert(`ERROR: Duplicate dataset: ${name}`);
-        return;    
+        return;
+      }
     }
 
     const uuid = uuidV4();
-    const row = { uuid: uuid, name: name };
-    remodel.datasets.push(row);
+    const row = { uuid: uuid, name: name, color: "#FF69B4"};
+    remodel.datasets[uuid] = row;
     console.log(row);
+
+    geoJsonDataObject[uuid] = remodel.dataToBeUploadedTemp;
     
     UIkit.notification({message: 'Successfully created dataset!', status: 'success'});
     
   } finally {
     remodel.add_dataset_modal.name = "";
     remodel.add_dataset_modal.file = "";
+    remodel.dataToBeUploadedTemp = {};
   }
 };
 
@@ -293,6 +284,8 @@ VueApp.methods.renameDataSet = function (event) {
 
 VueApp.methods.uploadDataSet = function (event) {
   console.log("Upload DataSet");
+  geoJsonDataObject[remodel.upload_dataset_modal.uuid] = remodel.dataToBeUploadedTemp;
+  remodel.dataToBeUploadedTemp = {};
 };
 
 VueApp.methods.copyDataSetPermalink = function (event) {
@@ -301,8 +294,8 @@ VueApp.methods.copyDataSetPermalink = function (event) {
 
 VueApp.methods.deleteDataSet = function (event) {
   console.log("Delete DataSet");
-  const name = remodel.delete_dataset_modal.name.trim();
-  remodel.datasets = remodel.datasets.filter((x) => x.name != name);
+  const uuid = remodel.delete_dataset_modal.uuid.trim();
+  delete remodel.datasets[uuid];
 };
 
 VueApp.methods.createMap = function (event) {
@@ -321,37 +314,48 @@ VueApp.methods.createMap = function (event) {
       return;
   }
   
-  if (remodel.datasets.some(x => x.name == dataset) == false) {
-      UIkit.modal.alert(`ERROR: No such dataset: ${dataset}`);
-      return;    
+  const datasetUuidFromName = VueApp.methods.findDatasetUuidFromName(dataset);
+  // Check if dataset exists in datasets...
+  if (datasetUuidFromName == undefined) {
+    UIkit.modal.alert(`ERROR: No such dataset: ${dataset}`);
+    return;
   }
-  
-  if (remodel.maps.some(x => x.name == name && x.dataset == dataset)) {
-      UIkit.modal.alert(`ERROR: duplicate dataset for map: ${name}`);
-      return;    
-  }
-  
-  const uuid = uuidV4();
-  const row = {
-    uuid: uuid,
-    name: name.trim(),
-    dataset: dataset.trim(),
-    color: color,
-  };
 
-  remodel.maps.push(row);
-  console.log(row);
+  // Check if map name exists already...
+  if (remodel.maps[name] !== undefined) {
+    //Check if map already has dataset
+    for (datasetUuid in datasetList) {
+      if (datasetUuidFromName == datasetUuid) {
+        UIkit.modal.alert(`ERROR: duplicate dataset for map: ${name}`);
+        return;
+      }
+    }
+    //add the dataset uuid to the map
+    remodel.maps[name].datasetList.push(datasetUuidFromName)
+  } else {
+    const newMap = {
+      name: name.trim(),
+      datasetList: [datasetUuidFromName],
+    };
   
+    remodel.maps[name] = newMap;
+  }
+
+  remodel.datasets[datasetUuidFromName].color = color;
+
   UIkit.notification({message: 'Dataset added to map!', status: 'success'});
 };
 
-VueApp.methods.changeMapColor = function (uuid, color) {
-  for (let map of remodel.maps) {
-    if (map.uuid === uuid) {
-      map.color = color;
-      break;
+VueApp.methods.findDatasetUuidFromName = function(name) {
+  for (dataset in remodel.datasets) {
+    if (remodel.datasets[dataset].name == name) {
+      return dataset;
     }
   }
+};
+
+VueApp.methods.changeMapColor = function (datasetUuid, color) {
+  remodel.datasets[datasetUuid].color = color;
 };
 
 VueApp.methods.copyMapPermalink = function (event) {
@@ -362,9 +366,7 @@ VueApp.methods.unlinkDataSet = function (event) {
   console.log("Unlink Data Set");
   const name = remodel.unlink_dataset_modal.name;
   const dataset = remodel.unlink_dataset_modal.dataset;
-  remodel.maps = remodel.maps.filter(
-    (x) => x.name != name || x.dataset != dataset
-  );
+  remodel.maps[name].datasetList.filter(x => x !== VueApp.methods.findDatasetUuidFromName(dataset));
 };
 
 VueApp.methods.screenshot = function (event) {

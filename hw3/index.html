@@ -63,7 +63,7 @@
                                 <a uk-icon="pencil" class="rename" uk-tooltip="RENAME" href="#rename_dataset_modal"
                                     uk-toggle v-on:click="openRenameDataSet(dataset.name)"></a>
                                 <a uk-icon="upload" class="upload" uk-tooltip="UPLOAD" href="#upload_dataset_modal"
-                                    uk-toggle v-on:click="openUploadDataSet(dataset.name)"></a>
+                                    uk-toggle v-on:click="openUploadDataSet(dataset.name, dataset.uuid)"></a>
                                 <a uk-icon="link" class="permalink" uk-tooltip="PERMALINK"
                                     href="#permalink_dataset_modal" uk-toggle
                                     v-on:click="openPermalinkDataSet(dataset.name)"></a>
@@ -92,20 +92,22 @@
                         <tr>
                     </thead>
                     <tbody>
-                        <tr v-for="map in maps">
-                            <td>
-                                <a uk-switcher-item="2" v-on:click="openMap(map.uuid)">{{ map.name }}</a>
-                            </td>
-                            <td>{{ map.dataset }}</td>
-                            <td><input type="color" v-model="map.color" @change="changeMapColor(map.uuid, map.color)" />
-                            </td>
-                            <td>
+                        <template v-for="map in maps">
+                            <tr v-for="dataset in map.datasetList" :key="dataset.uuid">
+                                <td>
+                                    <a uk-switcher-item="2" v-on:click="openMap(map.name)">{{ map.name }}</a>
+                                </td>
+                              <td>{{ datasets[dataset].name}}</td>
+                              <td><input type="color" v-model="datasets[dataset].color" @change="changeMapColor(datasets[dataset].uuid, datasets[dataset].color)" />
+                              </td>
+                              <td>
                                 <a uk-icon="location" uk-tooltip="VIEW MAP" uk-switcher-item="2"
-                                    v-on:click="openMap(map.name)"></a>
+                                        v-on:click="openMap(map.name)"></a>
                                 <a uk-icon="trash" class="red delete" uk-tooltip="DELETE" href="#unlink_dataset_modal"
-                                    uk-toggle v-on:click="openUnlinkMap(map.name, map.dataset)"></a>
-                            </td>
-                        </tr>
+                                        uk-toggle v-on:click="openUnlinkMap(map.name, datasets[dataset].name)"></a>
+                              </td>
+                            </tr>
+                        </template>
                     </tbody>
                 </table>
             </li>
@@ -356,7 +358,7 @@
 
     <script src="index.js"></script>
     <script src="mapping.js"></script>
-
+    <script src="geoJsonData.js"></script>
 </body>
 
 </html>
