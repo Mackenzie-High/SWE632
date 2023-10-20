@@ -57,7 +57,7 @@
                         <tr>
                     </thead>
                     <tbody>
-                        <tr v-for="dataset in datasets">
+                        <tr v-for="(dataset, key) in datasets">
                             <td>{{ dataset.name }}</td>
                             <td>
                                 <a uk-icon="pencil" class="rename" uk-tooltip="RENAME" href="#rename_dataset_modal"
@@ -68,7 +68,7 @@
                                     href="#permalink_dataset_modal" uk-toggle
                                     v-on:click="openPermalinkDataSet(dataset.name)"></a>
                                 <a uk-icon="trash" class="red delete" uk-tooltip="DELETE" href="#delete_dataset_modal"
-                                    uk-toggle v-on:click="openDeleteDataSet(dataset.name)"></a>
+                                    uk-toggle v-on:click="openDeleteDataSet(dataset.name, dataset.uuid)"></a>
                             </td>
                         </tr>
                     <tbody>
@@ -92,20 +92,20 @@
                         <tr>
                     </thead>
                     <tbody>
-                        <template v-for="map in maps">
-                            <tr v-for="dataset in map.datasetList" :key="dataset.uuid">
+                        <template v-for="(map, key) in maps">
+                            <tr v-for="(color, uuid) in map.datasetList" :key="uuid">
                                 <td>
                                     <a uk-switcher-item="2" v-on:click="openMap(map.name)">{{ map.name }}</a>
                                 </td>
-                              <td>{{ datasets[dataset].name}}</td>
-                              <td><input type="color" v-model="datasets[dataset].color" @change="changeMapColor(datasets[dataset].uuid, datasets[dataset].color)" />
-                              </td>
-                              <td>
-                                <a uk-icon="location" uk-tooltip="VIEW MAP" uk-switcher-item="2"
-                                        v-on:click="openMap(map.name)"></a>
-                                <a uk-icon="trash" class="red delete" uk-tooltip="DELETE" href="#unlink_dataset_modal"
-                                        uk-toggle v-on:click="openUnlinkMap(map.name, datasets[dataset].name)"></a>
-                              </td>
+                                <td>{{ datasets[uuid].name }}</td>
+                                <td><input type="color" v-model="color" @change="changeMapColor(map.name, uuid, color)" />
+                                </td>
+                                <td>
+                                    <a uk-icon="location" uk-tooltip="VIEW MAP" uk-switcher-item="2"
+                                            v-on:click="openMap(map.name)"></a>
+                                    <a uk-icon="trash" class="red delete" uk-tooltip="DELETE" href="#unlink_dataset_modal"
+                                            uk-toggle v-on:click="openUnlinkMap(map.name, datasets[uuid].name)"></a>
+                                </td>
                             </tr>
                         </template>
                     </tbody>
