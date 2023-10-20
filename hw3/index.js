@@ -241,7 +241,7 @@ VueApp.methods.createDataSet = function (event) {
     }
     
     for (dataset in remodel.datasets) {
-      if (dataset.name == name){
+      if (remodel.datasets[dataset].name == name){
         UIkit.modal.alert(`ERROR: Duplicate dataset: ${name}`);
         return;
       }
@@ -266,6 +266,12 @@ VueApp.methods.createDataSet = function (event) {
 VueApp.methods.renameDataSet = function (event) {
   console.log("Rename DataSet");
   console.log(event);
+
+  const duplicateNewNameUuid = VueApp.methods.findDatasetUuidFromName(remodel.rename_dataset_modal.new_name);
+  if (remodel.datasets[duplicateNewNameUuid] !== undefined) {
+    UIkit.modal.alert(`ERROR: Duplicate dataset: ${remodel.rename_dataset_modal.new_name}`);
+    return;
+  }
 
   for (dataset in remodel.datasets) {
     if (remodel.datasets[dataset].name == remodel.rename_dataset_modal.old_name.trim()) {
