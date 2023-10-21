@@ -46,10 +46,9 @@ function plotGeoJsonData(datasetData, geoJsonData) {
     onEachFeature: function (feature, layer) {
       if (datasetData.name && mapData) {
         layer.bindTooltip(
-          "Map Name: <b>" +
-            datasetData.name +
+          "Map Name: <b>" + mapName +
             "</b><br>Data Set Name: <b>" +
-            mapName +
+            datasetData.name +
             "</b>"
         );
       }
