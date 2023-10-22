@@ -43,8 +43,7 @@ const model = {
     geoJsonData: null,
   },
 
-  dataToBeUploadedTemp: {
-  },
+  dataToBeUploadedTemp: null,
 
   permalink_dataset_modal: {
     text: "",
@@ -240,6 +239,11 @@ VueApp.methods.createDataSet = function (event) {
       return;
     }
     
+    if (remodel.dataToBeUploadedTemp == undefined) {
+      UIkit.modal.alert("ERROR: You must upload a file!");
+      return;
+    }
+
     for (dataset in remodel.datasets) {
       if (remodel.datasets[dataset].name == name){
         UIkit.modal.alert(`ERROR: Duplicate dataset: ${name}`);
@@ -259,7 +263,7 @@ VueApp.methods.createDataSet = function (event) {
   } finally {
     remodel.add_dataset_modal.name = "";
     remodel.add_dataset_modal.file = "";
-    remodel.dataToBeUploadedTemp = {};
+    remodel.dataToBeUploadedTemp = null;
   }
 };
 
@@ -283,8 +287,15 @@ VueApp.methods.renameDataSet = function (event) {
 
 VueApp.methods.uploadDataSet = function (event) {
   console.log("Upload DataSet");
-  geoJsonDataObject[remodel.upload_dataset_modal.uuid] = remodel.dataToBeUploadedTemp;
-  remodel.dataToBeUploadedTemp = {};
+  try {
+    if (remodel.dataToBeUploadedTemp == undefined) {
+      UIkit.modal.alert("ERROR: You must upload a file!");
+      return;
+    }
+    geoJsonDataObject[remodel.upload_dataset_modal.uuid] = remodel.dataToBeUploadedTemp;
+  } finally {
+    remodel.dataToBeUploadedTemp = null;
+  }
 };
 
 VueApp.methods.copyDataSetPermalink = function (event) {
@@ -309,52 +320,59 @@ VueApp.methods.deleteDataSet = function (event) {
 
 VueApp.methods.createMap = function (event) {
   console.log("Create Map");
-  const name = remodel.add_dataset_to_map_modal.name.trim();
-  const dataset = remodel.add_dataset_to_map_modal.dataset.trim();
-  const color = remodel.add_dataset_to_map_modal.color;
-  
-  if (name == "") {
-      UIkit.modal.alert("ERROR: You must specify a map name!");
-      return;
-  }
+  try {
+    const name = remodel.add_dataset_to_map_modal.name.trim();
+    const dataset = remodel.add_dataset_to_map_modal.dataset.trim();
+    const color = remodel.add_dataset_to_map_modal.color;
 
-  if (dataset == "") {
-      UIkit.modal.alert("ERROR: You must specify a dataset!");
-      return;
-  }
-  
-  const datasetUuidFromName = VueApp.methods.findDatasetUuidFromName(dataset);
-  // Check if dataset exists in datasets...
-  if (datasetUuidFromName == undefined) {
-    UIkit.modal.alert(`ERROR: No such dataset: ${dataset}`);
-    return;
-  }
-
-  // Check if map name exists already...
-  if (remodel.maps[name] !== undefined) {
-    //Check if map already has dataset
-    const map = remodel.maps[name];
-    for (datasetUuid in map.datasetList) {
-      if (datasetUuidFromName == datasetUuid) {
-        UIkit.modal.alert(`ERROR: duplicate dataset for map: ${name}`);
+    if (name == "") {
+        UIkit.modal.alert("ERROR: You must specify a map name!");
         return;
-      }
     }
-    //add the dataset uuid to the map
-    remodel.maps[name].datasetList[datasetUuidFromName] = color;
-  } else {
-    const newMap = {
-      name: name.trim(),
-      datasetList: {},
-    };
-    newMap.datasetList[datasetUuidFromName] = color;
-  
-    remodel.maps[name] = newMap;
+
+    if (dataset == "") {
+        UIkit.modal.alert("ERROR: You must specify a dataset!");
+        return;
+    }
+
+    const datasetUuidFromName = VueApp.methods.findDatasetUuidFromName(dataset);
+    // Check if dataset exists in datasets...
+    if (datasetUuidFromName == undefined) {
+      UIkit.modal.alert(`ERROR: No such dataset: ${dataset}`);
+      return;
+    }
+
+    // Check if map name exists already...
+    if (remodel.maps[name] !== undefined) {
+      //Check if map already has dataset
+      const map = remodel.maps[name];
+      for (datasetUuid in map.datasetList) {
+        if (datasetUuidFromName == datasetUuid) {
+          UIkit.modal.alert(`ERROR: duplicate dataset for map: ${name}`);
+          return;
+        }
+      }
+      //add the dataset uuid to the map
+      remodel.maps[name].datasetList[datasetUuidFromName] = color;
+    } else {
+      const newMap = {
+        name: name.trim(),
+        datasetList: {},
+      };
+      newMap.datasetList[datasetUuidFromName] = color;
+      remodel.maps[name] = newMap;
+    }
+
+    remodel.datasets[datasetUuidFromName].color = color;
+
+    UIkit.notification({message: 'Dataset added to map!', status: 'success'});
+
+  } finally {
+    console.log("HITS THE FINALLY")
+    remodel.add_dataset_to_map_modal.name = "";
+    remodel.add_dataset_to_map_modal.dataset = "";
+    remodel.add_dataset_to_map_modal.color = "#FF69B4";
   }
-
-  remodel.datasets[datasetUuidFromName].color = color;
-
-  UIkit.notification({message: 'Dataset added to map!', status: 'success'});
 };
 
 VueApp.methods.findDatasetUuidFromName = function(name) {
@@ -377,7 +395,9 @@ VueApp.methods.unlinkDataSet = function (event) {
   console.log("Unlink Data Set");
   const name = remodel.unlink_dataset_modal.name;
   const dataset = remodel.unlink_dataset_modal.dataset;
-  remodel.maps[name].datasetList.filter(x => x !== VueApp.methods.findDatasetUuidFromName(dataset));
+  const uuidFromDatasetName = VueApp.methods.findDatasetUuidFromName(dataset);
+  delete remodel.maps[name]["datasetList"][uuidFromDatasetName];
+
 };
 
 VueApp.methods.screenshot = function (event) {
