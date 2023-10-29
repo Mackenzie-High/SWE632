@@ -13,7 +13,6 @@ function uuidV4() {
 
 function resetFileUploads() {
   document.getElementById("file_upload_1").value = null;
-  document.getElementById("file_upload_2").value = null;
 }
 
 // When a user selects a file to upload, the file is immediately read,
@@ -43,7 +42,7 @@ const model = {
     geoJsonData: null,
   },
 
-  dataToBeUploadedTemp: null,
+  dataToBeUploadedTemp: [],
 
   permalink_dataset_modal: {
     text: "",
@@ -152,16 +151,23 @@ const VueApp = {
 };
 
 VueApp.methods.datasetFileChanged = function (event) {
-  function parse(data) {
-    const geoJSON = JSON.parse(data);
-    remodel.dataToBeUploadedTemp = geoJSON;
-    console.log(geoJSON);
-  }
-
-  const reader = new FileReader();
-  reader.onload = (e) => parse(e.target.result);
-
   for (let file of event.target.files) {
+    function parse(data) {
+      const geoJSON = JSON.parse(data);
+      const signature = md5(data);
+      const upload = {
+        name: file.name.replace(".json", ""),
+        file: file,
+        geoJsonData: geoJSON,
+        signature: signature
+      };
+      remodel.dataToBeUploadedTemp.push(upload);
+      console.log(upload);
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => parse(e.target.result);
+
     reader.readAsText(file);
   }
 };
@@ -232,38 +238,50 @@ VueApp.methods.openMap = function (mapName) {
 VueApp.methods.createDataSet = function (event) {
   try {
     console.log("Create DataSet");
-    const name = remodel.add_dataset_modal.name.trim();
-
-    if ("" == name) {
-      UIkit.modal.alert("ERROR: You must specify a name!");
-      return;
-    }
     
-    if (remodel.dataToBeUploadedTemp == undefined) {
-      UIkit.modal.alert("ERROR: You must upload a file!");
+    if (remodel.dataToBeUploadedTemp == []) {
+      UIkit.modal.alert("ERROR: You must upload at least one file!");
       return;
     }
 
-    for (dataset in remodel.datasets) {
-      if (remodel.datasets[dataset].name == name){
-        UIkit.modal.alert(`ERROR: Duplicate dataset: ${name}`);
-        return;
+    for (let upload of remodel.dataToBeUploadedTemp) {
+
+      // In the future, consider refactoring these checks out of the enclosing loop,
+      // so that the checks are performed atomically. Currently, if an error is
+      // detected midway through uploading multiple data sets, then the initial
+      // data sets that were non-erronous will be uploaded. An error will be reported.
+      // Then, any subsequent non-erronous uploads will be ignored.
+      // Really, the upload should be all or nothing.
+      // Be care though!
+      // The Equivalent Data Set check checks against the known data sets.
+      // If you simply move this loop, then there is a subtle bug,
+      // such that equivalent data sets can be uploaded when using
+      // the multiple upload functionality.
+      for (dataset in remodel.datasets) {
+        if (remodel.datasets[dataset].name == upload.name){
+          UIkit.modal.alert(`ERROR: Duplicate dataset: ${upload.name}`);
+          return;
+        }
+        if (remodel.datasets[dataset].signature == upload.signature){
+          UIkit.modal.alert(`ERROR: Equivalent datasets: ${remodel.datasets[dataset].name} and ${upload.name}`);
+          return;
+        }
       }
+
+      const uuid = uuidV4();
+      const row = { uuid: uuid, name: upload.name, signature: upload.signature, color: "#FF69B4"};
+      remodel.datasets[uuid] = row;
+      console.log(row);
+
+      geoJsonDataObject[uuid] = upload.geoJsonData;
     }
-
-    const uuid = uuidV4();
-    const row = { uuid: uuid, name: name, color: "#FF69B4"};
-    remodel.datasets[uuid] = row;
-    console.log(row);
-
-    geoJsonDataObject[uuid] = remodel.dataToBeUploadedTemp;
     
     UIkit.notification({message: 'Successfully created dataset!', status: 'success'});
     
   } finally {
     remodel.add_dataset_modal.name = "";
     remodel.add_dataset_modal.file = "";
-    remodel.dataToBeUploadedTemp = null;
+    remodel.dataToBeUploadedTemp = [];
   }
 };
 
@@ -282,19 +300,6 @@ VueApp.methods.renameDataSet = function (event) {
       remodel.datasets[dataset].name = remodel.rename_dataset_modal.new_name.trim();
       break;
     }
-  }
-};
-
-VueApp.methods.uploadDataSet = function (event) {
-  console.log("Upload DataSet");
-  try {
-    if (remodel.dataToBeUploadedTemp == undefined) {
-      UIkit.modal.alert("ERROR: You must upload a file!");
-      return;
-    }
-    geoJsonDataObject[remodel.upload_dataset_modal.uuid] = remodel.dataToBeUploadedTemp;
-  } finally {
-    remodel.dataToBeUploadedTemp = null;
   }
 };
 

@@ -28,6 +28,11 @@
         integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <!-- Blueimp MD5 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js"
+        integrity="sha512-8pbzenDolL1l5OPSsoURCx9TEdMFTaeFipASVrMYKhuYtly+k3tcsQYliOEKTmuB1t7yuzAiVo+yd7SJz+ijFQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <link rel="stylesheet" href="index.css" />
 
 </head>
@@ -62,8 +67,6 @@
                             <td>
                                 <a uk-icon="pencil" class="rename" uk-tooltip="RENAME" href="#rename_dataset_modal"
                                     uk-toggle v-on:click="openRenameDataSet(dataset.name)"></a>
-                                <a uk-icon="upload" class="upload" uk-tooltip="UPLOAD" href="#upload_dataset_modal"
-                                    uk-toggle v-on:click="openUploadDataSet(dataset.name, dataset.uuid)"></a>
                                 <a uk-icon="link" class="permalink" uk-tooltip="PERMALINK"
                                     href="#permalink_dataset_modal" uk-toggle
                                     v-on:click="openPermalinkDataSet(dataset.name)"></a>
@@ -139,13 +142,9 @@
             <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="">Add Data Set</h2>
                 <div class="uk-form uk-margin">
-                    <b>Name</b>
-                    <input type="text" class="uk-width-1-1 uk-input" v-model="add_dataset_modal.name">
-                </div>
-                <div class="uk-form uk-margin">
                     <b>Data File</b> (<span class="red"> *.json</span> files only )
                     <input id="file_upload_1" type="file" accept="application/JSON" class="uk-width-1-1 uk-input"
-                        v-on:change="datasetFileChanged" readonly>
+                        v-on:change="datasetFileChanged" multiple readonly>
                 </div>
                 <div class="uk-align-right">
                     <a class="uk-button uk-button-primary uk-modal-close" type="a" v-on:click="createDataSet">CREATE</a>
@@ -192,22 +191,6 @@
                 <div class="uk-align-right">
                     <a class="uk-button uk-button-primary  uk-modal-close" type="a"
                         v-on:click="renameDataSet">RENAME</a>
-                    <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
-                </div>
-            </div>
-        </div>
-
-        <div id="upload_dataset_modal" uk-modal>
-            <div class="uk-modal-dialog uk-modal-body">
-                <h2 class="">Upload Data Set</h2>
-                <div class="uk-form uk-margin">
-                    <b>Data File</b> (<span class="red"> *.json</span> files only )
-                    <input id="file_upload_2" type="file" accept="application/JSON" class="uk-width-1-1 uk-input"
-                        v-on:change="datasetFileChanged" readonly>
-                </div>
-                <div class="uk-align-right">
-                    <a class="uk-button uk-button-primary  uk-modal-close" type="a"
-                        v-on:click="uploadDataSet">UPLOAD</a>
                     <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
                 </div>
             </div>
