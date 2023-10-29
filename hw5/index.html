@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SWE632 Mapper</title>
+
+    <!-- Vue.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.3.4/vue.global.min.js"
+        integrity="sha512-Wbf9QOX8TxnLykSrNGmAc5mDntbpyXjOw9zgnKql3DgQ7Iyr5TCSPWpvpwDuo+jikYoSNMD9tRRH854VfPpL9A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- UiKit -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.16.24/css/uikit.min.css"
+        integrity="sha512-NcmV7IV+qizfpgTaTg1WzUZiBdDZfC4+AEg9Fh845oz6DbZNrYVqv9V09Tvrw49UdhGSISB3VqYMRSUBwOfxOA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.16.24/js/uikit.min.js"
+        integrity="sha512-GuBLLhqyTuc7b3Iup+mC6aihg2+yVeq//7p79RDG64zDKabYKQlVhuO7I+aKYCBVyHraSEHz/LNO2x9Gs6ayNA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.16.24/js/uikit-icons.min.js"
+        integrity="sha512-pca9avNkoc85j1HMRuksRgpT4KMZOx88McJyQaO01Rt6v2gzRpz1634urrXntjUTnSE/g/IkiKvUp3IHSPlmmg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
+        integrity="sha512-Zcn6bjR/8RZbLEpLIeOwNtzREBAJnUKESxces60Mpoj+2okopSAcSUIUOseddDm0cxnGQzxIR7vJgsLZbdLE3w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"
+        integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link rel="stylesheet" href="index.css" />
+
+</head>
+
+<body class="uk-height-viewport uk-width-1-1" uk-grid>
+    <div class="uk-width-1-6"></div>
+    <div id="app" class="uk-height-viewport uk-width-2-3">
+        <ul class="uk-subnav uk-subnav-pill uk-width-1-1" uk-switcher>
+            <li><a href="#">Data Sets</a></li>
+            <li><a href="#">Maps</a></li>
+            <li><a href="#" class="uk-invisible" id="map-switcher-tab">Map</a></li>
+        </ul>
+
+        <ul class="uk-switcher uk-margin uk-height-1-1 uk-width-1-1">
+            <li>
+                <a class="uk-button uk-button-default" uk-toggle="target: #add_dataset_modal"
+                    v-on:click="openCreateDataSet"><span uk-icon="plus" uk-tooltip="ADD DATA SET"></span></a>
+
+                <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #datasets_help_modal">
+                    <span uk-icon="info" uk-tooltip="HELP"></span></a>
+                    
+                <table class="uk-table  uk-table-striped uk-table-hover">
+                    <thead>
+                        <tr>
+                            <th class="uk-width-5-6">Data Set Name</th>
+                            <th class="uk-width-1-6">Actions</th>
+                        <tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(dataset, key) in datasets">
+                            <td>{{ dataset.name }}</td>
+                            <td>
+                                <a uk-icon="pencil" class="rename" uk-tooltip="RENAME" href="#rename_dataset_modal"
+                                    uk-toggle v-on:click="openRenameDataSet(dataset.name)"></a>
+                                <a uk-icon="upload" class="upload" uk-tooltip="UPLOAD" href="#upload_dataset_modal"
+                                    uk-toggle v-on:click="openUploadDataSet(dataset.name, dataset.uuid)"></a>
+                                <a uk-icon="link" class="permalink" uk-tooltip="PERMALINK"
+                                    href="#permalink_dataset_modal" uk-toggle
+                                    v-on:click="openPermalinkDataSet(dataset.name)"></a>
+                                <a uk-icon="trash" class="red delete" uk-tooltip="DELETE" href="#delete_dataset_modal"
+                                    uk-toggle v-on:click="openDeleteDataSet(dataset.name, dataset.uuid)"></a>
+                            </td>
+                        </tr>
+                    <tbody>
+                </table>
+            </li>
+
+            <li>
+                <a class="uk-button uk-button uk-button-default" uk-toggle="target: #add_dataset_to_map_modal"><span
+                        v-on:click="openCreateMap" uk-icon="plus" uk-tooltip="ADD DATA SET TO MAP"></span></a>
+                        
+                <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #maps_help_modal">
+                    <span uk-icon="info" uk-tooltip="HELP"></span></a>
+                        
+                <table class="uk-table  uk-table-striped uk-table-hover">
+                    <thead>
+                        <tr>
+                            <th>Map Name</th>
+                            <th>Data Set</th>
+                            <th>Color</th>
+                            <th>Actions</th>
+                        <tr>
+                    </thead>
+                    <tbody>
+                        <template v-for="(map, key) in maps">
+                            <tr v-for="(color, uuid) in map.datasetList" :key="uuid">
+                                <td>
+                                    <a uk-switcher-item="2" v-on:click="openMap(map.name)">{{ map.name }}</a>
+                                </td>
+                                <td>{{ datasets[uuid].name }}</td>
+                                <td><input type="color" v-model="color" @change="changeMapColor(map.name, uuid, color)" />
+                                </td>
+                                <td>
+                                    <a uk-icon="location" uk-tooltip="VIEW MAP" uk-switcher-item="2"
+                                            v-on:click="openMap(map.name)"></a>
+                                    <a uk-icon="trash" class="red delete" uk-tooltip="DELETE" href="#unlink_dataset_modal"
+                                            uk-toggle v-on:click="openUnlinkMap(map.name, datasets[uuid].name)"></a>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </li>
+
+            <li id="render_map" class="uk-height-1-1 uk-width-1-1">
+                <div class="uk-flex uk-flex-row uk-flex-between uk-padding-remove uk-margin-remove">
+                
+                    <div>
+                        <a class="uk-button uk-button-default uk-button-default"><span uk-icon="camera"
+                                uk-tooltip="SCREENSHOT" v-on:click="screenshot"></span></a>
+                        &nbsp;&nbsp;&nbsp;
+                        <a class="uk-button uk-button-default uk-button-default" uk-icon="link" uk-tooltip="PERMALINK"
+                            href="#permalink_map_modal" uk-toggle></a>
+                    </div>
+                        
+                    <div>
+                        <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #map_help_modal">
+                            <span uk-icon="info" uk-tooltip="HELP"></span></a>
+                    </div>
+                </div>
+                <h4 class="uk-text-center uk-padding-remove uk-margin-remove">{{ current_map.name }}</h4>
+                <div class="uk-height-1-1 uk-width-1-1 uk-margin uk-object-contain">
+                    <div id="map" class="uk-height-1-1 uk-width-1-1"></div>
+                </div>
+            </li>
+        </ul>
+
+        <div id="add_dataset_modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="">Add Data Set</h2>
+                <div class="uk-form uk-margin">
+                    <b>Name</b>
+                    <input type="text" class="uk-width-1-1 uk-input" v-model="add_dataset_modal.name">
+                </div>
+                <div class="uk-form uk-margin">
+                    <b>Data File</b> (<span class="red"> *.json</span> files only )
+                    <input id="file_upload_1" type="file" accept="application/JSON" class="uk-width-1-1 uk-input"
+                        v-on:change="datasetFileChanged" readonly>
+                </div>
+                <div class="uk-align-right">
+                    <a class="uk-button uk-button-primary uk-modal-close" type="a" v-on:click="createDataSet">CREATE</a>
+                    <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="add_dataset_to_map_modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="">Add Data Set to Map</h2>
+                <div class="uk-form uk-margin">
+                    <b>Map Name</b> (the map will be created, if it does not already exist)
+                    <input type="text" class="uk-width-1-1 uk-input" v-model="add_dataset_to_map_modal.name">
+                </div>
+                <div class="uk-form uk-margin">
+                    <b>Data Set</b> (name or permalink)
+                    <input type="text" class="uk-width-1-1 uk-input" v-model="add_dataset_to_map_modal.dataset">
+                </div>
+                <div class="uk-form uk-margin">
+                    <b>Color</b>
+                    <input type="color" v-model="add_dataset_to_map_modal.color" />
+                </div>
+                <div class="uk-align-right">
+                    <a id="add_map_button" class="uk-button uk-button-primary  uk-modal-close" type="a"
+                        v-on:click="createMap">CREATE</a>
+                    <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="rename_dataset_modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="">Rename Data Set</h2>
+                <div class="uk-form uk-margin">
+                    <b>Old Data Set Name</b>
+                    <input type="text" class="uk-width-1-1 uk-input" v-model="rename_dataset_modal.old_name" readonly
+                        disabled>
+                </div>
+                <div class="uk-form uk-margin">
+                    <b>New Data Set Name</b>
+                    <input type="text" class="uk-width-1-1 uk-input" v-model="rename_dataset_modal.new_name">
+                </div>
+                <div class="uk-align-right">
+                    <a class="uk-button uk-button-primary  uk-modal-close" type="a"
+                        v-on:click="renameDataSet">RENAME</a>
+                    <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="upload_dataset_modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="">Upload Data Set</h2>
+                <div class="uk-form uk-margin">
+                    <b>Data File</b> (<span class="red"> *.json</span> files only )
+                    <input id="file_upload_2" type="file" accept="application/JSON" class="uk-width-1-1 uk-input"
+                        v-on:change="datasetFileChanged" readonly>
+                </div>
+                <div class="uk-align-right">
+                    <a class="uk-button uk-button-primary  uk-modal-close" type="a"
+                        v-on:click="uploadDataSet">UPLOAD</a>
+                    <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="permalink_dataset_modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="">Permalink Data Set</h2>
+                <div class="uk-form uk-margin">
+                    <b>Permalink:</b>
+                    <a v-bind:href="permalink_dataset_modal.href">{{permalink_dataset_modal.text}}</a>
+                </div>
+                <div class="uk-align-right uk-margin">
+                    <a class="uk-button uk-button-primary  uk-modal-close" type="a"
+                        v-on:click="copyDataSetPermalink">COPY</a>
+                    <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="permalink_map_modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="">Permalink Map</h2>
+                <div class="uk-form uk-margin">
+                    <b>Permalink:</b>
+                    <a v-bind:href="permalink_map_modal.href">{{permalink_map_modal.text}}</a>
+                </div>
+                <div class="uk-align-right uk-margin">
+                    <a class="uk-button uk-button-primary  uk-modal-close" type="a"
+                        v-on:click="copyMapPermalink">COPY</a>
+                    <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="delete_dataset_modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="">Permanently Delete Data Set</h2>
+                <div class="uk-form uk-margin">
+                    <b>Data Set</b>
+                    <input type="text" class="uk-width-1-1 uk-input" v-model="delete_dataset_modal.name" readonly
+                        disabled>
+                </div>
+                <div class="uk-align-right">
+                    <a class="uk-button uk-button-primary  uk-modal-close" type="a"
+                        v-on:click="deleteDataSet">DELETE</a>
+                    <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="unlink_dataset_modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="">Remove Data Set from Map</h2>
+                <div class="uk-form uk-margin">
+                    <b>Map Name</b>
+                    <input type="text" class="uk-width-1-1 uk-input" v-model="unlink_dataset_modal.name" readonly
+                        disabled>
+                </div>
+                <div class="uk-form uk-margin">
+                    <b>Data Set</b>
+                    <input type="text" class="uk-width-1-1 uk-input" v-model="unlink_dataset_modal.dataset" readonly
+                        disabled>
+                </div>
+                <div class="uk-align-right">
+                    <a class="uk-button uk-button-primary  uk-modal-close" type="a"
+                        v-on:click="unlinkDataSet">REMOVE</a>
+                    <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
+                </div>
+            </div>
+        </div>
+        
+        <div id="datasets_help_modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="uk-modal-title">Help Documentation</h2>
+                <p>
+                    <b>1. Getting Started:</b>
+                    <ul>
+                        <li><b>Accessing the Website:</b> Open your web browser and enter the website's URL.</li>
+                        <li><b>Creating an Account:</b> Click the "Sign Up" button on the homepage and follow the on-screen instructions to create your account.</li>
+                        <li><b>Navigating the Homepage:</b> The homepage provides an overview of recent content. Use the navigation menu on the left to access different sections of the website.</li>
+                    </ul>
+                </p>
+                <p>
+                    <b>2. Managing Data Sets:</b>
+                    <ul>
+                        <li><b>Adding a Data Set:</b> Click the "Data Sets" tab to view your existing data sets. Click the "ADD DATA SET" button to create a new data set. Provide a name and upload a JSON file.</li>
+                        <li><b>Renaming a Data Set:</b> Click the pencil icon next to a data set's name, enter the new name, and click "RENAME."</li>
+                        <li><b>Uploading Data:</b> To upload data to an existing data set, click the "UPLOAD" icon next to the data set. Choose a JSON file to upload.</li>
+                        <li><b>Deleting a Data Set:</b> To delete a data set, click the trash can icon next to the data set and confirm the deletion when prompted.</li>
+                        <li><b>Permalinking a Data Set:</b> Click the "PERMALINK" icon next to the data set and copy the provided permalink to share your data set.</li>
+                    </ul>
+                </p>
+                <p class="uk-text-right">
+                    <button class="uk-button uk-button-danger uk-modal-close" type="button">CLOSE</button>
+                </p>
+            </div>
+        </div>
+
+        <div id="maps_help_modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="uk-modal-title">Help Documentation</h2>
+                <p>
+                    <b>3. Working with Maps:</b>
+                    <ul>
+                        <li><b>Adding a Map:</b> Click the "Maps" tab to view your maps. Click the "ADD DATA SET TO MAP" button to create a new map. Provide a name, associate data sets, and choose a color.</li>
+                        <li><b>Associating Data Sets with Maps:</b> When creating a map, select the data sets to associate with it.</li>
+                        <li><b>Changing Map Colors:</b> To change a map's color, click the color box next to the map and choose a new color from the color picker.</li>
+                        <li><b>Viewing Maps:</b> Click a map's name to view it.</li>
+                        <li><b>Removing Data Sets from Maps:</b> To remove a data set from a map, click the trash can icon next to the map and confirm the removal when prompted.</li>
+                        <li><b>Permalinking a Map:</b> Click the "PERMALINK" icon next to the map and copy the provided permalink to share your map.</li>
+                    </ul>
+                </p>
+                <p>
+                    <b>4. Interactive Map View:</b>
+                    <ul>
+                        <li><b>Taking a Screenshot:</b> Click the camera icon to take a screenshot of the current map view.</li>
+                        <li><b>Using Permalinks:</b> Click the "PERMALINK" icon to get a permalink for the map's current view.</li>
+                    </ul>
+                </p>
+        
+                <p class="uk-text-right">
+                    <button class="uk-button uk-button-danger uk-modal-close" type="button">CLOSE</button>
+                </p>
+            </div>
+        </div>
+        
+        <div id="map_help_modal" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="uk-modal-title">Help Documentation</h2>
+                <p>
+                    <b>4. Interactive Map View:</b>
+                    <ul>
+                        <li><b>Taking a Screenshot:</b> Click the camera icon to take a screenshot of the current map view.</li>
+                        <li><b>Using Permalinks:</b> Click the "PERMALINK" icon to get a permalink for the map's current view.</li>
+                    </ul>
+                </p>
+        
+                <p class="uk-text-right">
+                    <button class="uk-button uk-button-danger uk-modal-close" type="button">CLOSE</button>
+                </p>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="uk-width-1-6"></div>
+
+    <script src="index.js"></script>
+    <script src="mapping.js"></script>
+    <script src="geoJsonData.js"></script>
+</body>
+
+</html>
