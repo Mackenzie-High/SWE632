@@ -79,6 +79,7 @@ const VueApp = {
 };
 
 VueApp.methods.datasetFileChanged = function (event) {
+  remodel.dataToBeUploadedTemp = []
   for (let file of event.target.files) {
     function parse(data) {
       const geoJSON = JSON.parse(data);
