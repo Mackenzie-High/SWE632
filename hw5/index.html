@@ -64,10 +64,6 @@
 </head>
 
 <body class="uk-height-viewport uk-width-1-1" uk-grid>
-
-  
-
-
     <div class="uk-width-1-6"></div>
     <div id="app" class="uk-height-viewport uk-width-2-3">
         <ul class="uk-subnav uk-subnav-pill uk-width-1-1" uk-switcher>
@@ -209,28 +205,28 @@
             <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="uk-modal-title">Help Documentation</h2>
                 <p>
-    <b>1. Adding a Data Set:</b> 
-    <ul>
-        <li>Click the <a class="uk-button uk-button-default" uk-toggle="target: #add_dataset_modal" v-on:click="openCreateDataSet">ADD DATA SET</a> button.</li>
-        <li>Upload a JSON file to create a new data set. You can add multiple .json files at once, and the application will auto-populate data set names with the corresponding file names.</li>
-    </ul>
-</p>
+                    <b>1. Adding a Data Set:</b> 
+                    <ul>
+                        <li>Click the <a class="uk-button uk-button-default" uk-toggle="target: #add_dataset_modal" v-on:click="openCreateDataSet">ADD DATA SET</a> button.</li>
+                        <li>Upload a JSON file to create a new data set. You can add multiple .json files at once, and the application will auto-populate data set names with the corresponding file names.</li>
+                    </ul>
+                </p>
 
-<p>
-    <b>2. Renaming a Data Set:</b> 
-    <ul>
-        <li>Click the pencil icon (<a uk-icon="pencil" class="rename" uk-tooltip="RENAME" href="#rename_dataset_modal" uk-toggle v-on:click="openRenameDataSet(dataset.name)"></a>) next to a data set's name.</li>
-        <li>Enter the new name for the data set and click "RENAME" to save the changes.</li>
-    </ul>
-</p>
+                <p>
+                    <b>2. Renaming a Data Set:</b> 
+                    <ul>
+                        <li>Click the pencil icon (<a uk-icon="pencil" class="rename" uk-tooltip="RENAME" href="#rename_dataset_modal" uk-toggle v-on:click="openRenameDataSet(dataset.name)"></a>) next to a data set's name.</li>
+                        <li>Enter the new name for the data set and click "RENAME" to save the changes.</li>
+                    </ul>
+                </p>
 
-<p>
-    <b>3. Deleting a Data Set:</b> 
-    <ul>
-        <li>To delete a data set, click the trash can icon (<a uk-icon="trash" class="red delete" uk-tooltip="DELETE" href="#delete_dataset_modal" uk-toggle v-on:click="openDeleteDataSet(dataset.name, dataset.uuid)"></a>) next to the data set.</li>
-        <li>Confirm the deletion when prompted to permanently remove the data set.</li>
-    </ul>
-</p>
+                <p>
+                    <b>3. Deleting a Data Set:</b> 
+                    <ul>
+                        <li>To delete a data set, click the trash can icon (<a uk-icon="trash" class="red delete" uk-tooltip="DELETE" href="#delete_dataset_modal" uk-toggle v-on:click="openDeleteDataSet(dataset.name, dataset.uuid)"></a>) next to the data set.</li>
+                        <li>Confirm the deletion when prompted to permanently remove the data set.</li>
+                    </ul>
+                </p>
                 <p class="uk-text-right">
                     <button class="uk-button uk-button-danger uk-modal-close" type="button">CLOSE</button>
                 </p>
@@ -243,7 +239,7 @@
                 <p>
                     <b>4. Viewing a Map:</b> 
                     <ul>
-                        <li>Click the data set name to view the map associated with that data set. (<a uk-tooltip="VIEW MAP" uk-switcher-item="1" v-on:click="openMap()">{{ dataset.name }}</a>)</li>
+                        <li>Click the data set name to view the map associated with that data set.</li>
                     </ul>
                 </p>
                 
@@ -266,7 +262,6 @@
     </div>
 
     <div class="uk-width-1-6"></div>
-
     <script src="index.js"></script>
     <script src="mapping.js"></script>
     <script src="geoJsonData.js"></script>
