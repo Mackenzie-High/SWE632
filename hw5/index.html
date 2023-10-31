@@ -42,8 +42,7 @@
     <div id="app" class="uk-height-viewport uk-width-2-3">
         <ul class="uk-subnav uk-subnav-pill uk-width-1-1" uk-switcher>
             <li><a href="#">Data Sets</a></li>
-            <li><a href="#">Maps</a></li>
-            <li><a href="#" class="uk-invisible" id="map-switcher-tab">Map</a></li>
+            <li><a href="#" id="map-switcher-tab">Map</a></li>
         </ul>
 
         <ul class="uk-switcher uk-margin uk-height-1-1 uk-width-1-1">
@@ -57,61 +56,31 @@
                 <table class="uk-table  uk-table-striped uk-table-hover">
                     <thead>
                         <tr>
-                            <th class="uk-width-5-6">Data Set Name</th>
+                            <th class="uk-width-2-3">Data Set Name</th>
+                            <th class="uk-width-1-6">Color</th>
                             <th class="uk-width-1-6">Actions</th>
                         <tr>
                     </thead>
                     <tbody>
                         <tr v-for="(dataset, key) in datasets">
-                            <td>{{ dataset.name }}</td>
                             <td>
+                                <a uk-tooltip="VIEW MAP" uk-switcher-item="1" v-on:click="openMap()">{{ dataset.name }}</a>
+                            </td>
+
+                            <td>
+                                <input type="color" v-model="dataset.color" />
+                            </td>
+
+                            <td>
+                                <a uk-icon="location" uk-tooltip="VIEW MAP" uk-switcher-item="1"
+                                        v-on:click="openMap()"></a>
                                 <a uk-icon="pencil" class="rename" uk-tooltip="RENAME" href="#rename_dataset_modal"
                                     uk-toggle v-on:click="openRenameDataSet(dataset.name)"></a>
-                                <a uk-icon="link" class="permalink" uk-tooltip="PERMALINK"
-                                    href="#permalink_dataset_modal" uk-toggle
-                                    v-on:click="openPermalinkDataSet(dataset.name)"></a>
                                 <a uk-icon="trash" class="red delete" uk-tooltip="DELETE" href="#delete_dataset_modal"
                                     uk-toggle v-on:click="openDeleteDataSet(dataset.name, dataset.uuid)"></a>
                             </td>
                         </tr>
                     <tbody>
-                </table>
-            </li>
-
-            <li>
-                <a class="uk-button uk-button uk-button-default" uk-toggle="target: #add_dataset_to_map_modal"><span
-                        v-on:click="openCreateMap" uk-icon="plus" uk-tooltip="ADD DATA SET TO MAP"></span></a>
-                        
-                <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #maps_help_modal">
-                    <span uk-icon="info" uk-tooltip="HELP"></span></a>
-                        
-                <table class="uk-table  uk-table-striped uk-table-hover">
-                    <thead>
-                        <tr>
-                            <th>Map Name</th>
-                            <th>Data Set</th>
-                            <th>Color</th>
-                            <th>Actions</th>
-                        <tr>
-                    </thead>
-                    <tbody>
-                        <template v-for="(map, key) in maps">
-                            <tr v-for="(color, uuid) in map.datasetList" :key="uuid">
-                                <td>
-                                    <a uk-switcher-item="2" v-on:click="openMap(map.name)">{{ map.name }}</a>
-                                </td>
-                                <td>{{ datasets[uuid].name }}</td>
-                                <td><input type="color" v-model="color" @change="changeMapColor(map.name, uuid, color)" />
-                                </td>
-                                <td>
-                                    <a uk-icon="location" uk-tooltip="VIEW MAP" uk-switcher-item="2"
-                                            v-on:click="openMap(map.name)"></a>
-                                    <a uk-icon="trash" class="red delete" uk-tooltip="DELETE" href="#unlink_dataset_modal"
-                                            uk-toggle v-on:click="openUnlinkMap(map.name, datasets[uuid].name)"></a>
-                                </td>
-                            </tr>
-                        </template>
-                    </tbody>
                 </table>
             </li>
 
@@ -153,29 +122,6 @@
             </div>
         </div>
 
-        <div id="add_dataset_to_map_modal" uk-modal>
-            <div class="uk-modal-dialog uk-modal-body">
-                <h2 class="">Add Data Set to Map</h2>
-                <div class="uk-form uk-margin">
-                    <b>Map Name</b> (the map will be created, if it does not already exist)
-                    <input type="text" class="uk-width-1-1 uk-input" v-model="add_dataset_to_map_modal.name">
-                </div>
-                <div class="uk-form uk-margin">
-                    <b>Data Set</b> (name or permalink)
-                    <input type="text" class="uk-width-1-1 uk-input" v-model="add_dataset_to_map_modal.dataset">
-                </div>
-                <div class="uk-form uk-margin">
-                    <b>Color</b>
-                    <input type="color" v-model="add_dataset_to_map_modal.color" />
-                </div>
-                <div class="uk-align-right">
-                    <a id="add_map_button" class="uk-button uk-button-primary  uk-modal-close" type="a"
-                        v-on:click="createMap">CREATE</a>
-                    <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
-                </div>
-            </div>
-        </div>
-
         <div id="rename_dataset_modal" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="">Rename Data Set</h2>
@@ -191,21 +137,6 @@
                 <div class="uk-align-right">
                     <a class="uk-button uk-button-primary  uk-modal-close" type="a"
                         v-on:click="renameDataSet">RENAME</a>
-                    <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
-                </div>
-            </div>
-        </div>
-
-        <div id="permalink_dataset_modal" uk-modal>
-            <div class="uk-modal-dialog uk-modal-body">
-                <h2 class="">Permalink Data Set</h2>
-                <div class="uk-form uk-margin">
-                    <b>Permalink:</b>
-                    <a v-bind:href="permalink_dataset_modal.href">{{permalink_dataset_modal.text}}</a>
-                </div>
-                <div class="uk-align-right uk-margin">
-                    <a class="uk-button uk-button-primary  uk-modal-close" type="a"
-                        v-on:click="copyDataSetPermalink">COPY</a>
                     <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
                 </div>
             </div>
@@ -241,27 +172,6 @@
                 </div>
             </div>
         </div>
-
-        <div id="unlink_dataset_modal" uk-modal>
-            <div class="uk-modal-dialog uk-modal-body">
-                <h2 class="">Remove Data Set from Map</h2>
-                <div class="uk-form uk-margin">
-                    <b>Map Name</b>
-                    <input type="text" class="uk-width-1-1 uk-input" v-model="unlink_dataset_modal.name" readonly
-                        disabled>
-                </div>
-                <div class="uk-form uk-margin">
-                    <b>Data Set</b>
-                    <input type="text" class="uk-width-1-1 uk-input" v-model="unlink_dataset_modal.dataset" readonly
-                        disabled>
-                </div>
-                <div class="uk-align-right">
-                    <a class="uk-button uk-button-primary  uk-modal-close" type="a"
-                        v-on:click="unlinkDataSet">REMOVE</a>
-                    <a class="uk-button uk-button-danger  uk-modal-close" type="a">CANCEL</a>
-                </div>
-            </div>
-        </div>
         
         <div id="datasets_help_modal" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
@@ -284,34 +194,6 @@
                         <li><b>Permalinking a Data Set:</b> Click the "PERMALINK" icon next to the data set and copy the provided permalink to share your data set.</li>
                     </ul>
                 </p>
-                <p class="uk-text-right">
-                    <button class="uk-button uk-button-danger uk-modal-close" type="button">CLOSE</button>
-                </p>
-            </div>
-        </div>
-
-        <div id="maps_help_modal" uk-modal>
-            <div class="uk-modal-dialog uk-modal-body">
-                <h2 class="uk-modal-title">Help Documentation</h2>
-                <p>
-                    <b>3. Working with Maps:</b>
-                    <ul>
-                        <li><b>Adding a Map:</b> Click the "Maps" tab to view your maps. Click the "ADD DATA SET TO MAP" button to create a new map. Provide a name, associate data sets, and choose a color.</li>
-                        <li><b>Associating Data Sets with Maps:</b> When creating a map, select the data sets to associate with it.</li>
-                        <li><b>Changing Map Colors:</b> To change a map's color, click the color box next to the map and choose a new color from the color picker.</li>
-                        <li><b>Viewing Maps:</b> Click a map's name to view it.</li>
-                        <li><b>Removing Data Sets from Maps:</b> To remove a data set from a map, click the trash can icon next to the map and confirm the removal when prompted.</li>
-                        <li><b>Permalinking a Map:</b> Click the "PERMALINK" icon next to the map and copy the provided permalink to share your map.</li>
-                    </ul>
-                </p>
-                <p>
-                    <b>4. Interactive Map View:</b>
-                    <ul>
-                        <li><b>Taking a Screenshot:</b> Click the camera icon to take a screenshot of the current map view.</li>
-                        <li><b>Using Permalinks:</b> Click the "PERMALINK" icon to get a permalink for the map's current view.</li>
-                    </ul>
-                </p>
-        
                 <p class="uk-text-right">
                     <button class="uk-button uk-button-danger uk-modal-close" type="button">CLOSE</button>
                 </p>
