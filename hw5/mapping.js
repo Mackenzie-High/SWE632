@@ -33,16 +33,21 @@ function clearOldLayers() {
 function plotGeoJsonData(datasetData, geoJsonData) {
   console.log(geoJsonData)
   map.invalidateSize();
+
+  const coordinates = geoJsonData.features[0].geometry.coordinates;
+  const coordinatesLength = coordinates.length;
+  const firstCoor = coordinates[0];
+  const lastCoor = coordinates[coordinatesLength - 1];
+
   geoJsonLayer = L.geoJSON(geoJsonData, {
     style: {
       color: datasetData.color,
-      weight: 3,
+      weight: 4,
     },
     onEachFeature: function (feature, layer) {
-      if (datasetData.name && mapData) {
-        layer.bindTooltip(
-          "Map Name: <b>" + mapName +
-            "</b><br>Data Set Name: <b>" +
+      if (datasetData.name) {
+        layer.bindPopup(
+            "Data Set Name: <b>" +
             datasetData.name +
             "</b>"
         );
@@ -52,6 +57,13 @@ function plotGeoJsonData(datasetData, geoJsonData) {
 
   geoJsonLayers.push(geoJsonLayer);
   console.log("Should have added the layer...");
+
+  // const markerIcon = L.divIcon({
+  //   className: "custom-marker",
+  //   html: '<div style="background-color: ' + datasetData.color + ';" class="marker"></div>',
+  // });
+  // const firstMarker = L.marker([firstCoor[1], firstCoor[0]], { icon: markerIcon }).addTo(map);
+  // const lastMarker = L.marker([lastCoor[1], lastCoor[0]], { icon: markerIcon }).addTo(map);
 }
 
 function fitAllBounds() {
