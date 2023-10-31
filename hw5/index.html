@@ -207,7 +207,7 @@
                 <p>
                     <b>1. Adding a Data Set:</b> 
                     <ul>
-                        <li>Click the <a class="uk-button uk-button-default" uk-toggle="target: #add_dataset_modal" v-on:click="openCreateDataSet">ADD DATA SET</a> button.</li>
+                        <li>Click the <a class="uk-button uk-button-default">ADD DATA SET</a> button.</li>
                         <li>Upload a JSON file to create a new data set. You can add multiple .json files at once, and the application will auto-populate data set names with the corresponding file names.</li>
                     </ul>
                 </p>
@@ -215,7 +215,7 @@
                 <p>
                     <b>2. Renaming a Data Set:</b> 
                     <ul>
-                        <li>Click the pencil icon (<a uk-icon="pencil" class="rename" uk-tooltip="RENAME" href="#rename_dataset_modal" uk-toggle v-on:click="openRenameDataSet(dataset.name)"></a>) next to a data set's name.</li>
+                        <li>Click the pencil icon (<a uk-icon="pencil" class="rename" uk-tooltip="RENAME"></a>) next to a data set's name.</li>
                         <li>Enter the new name for the data set and click "RENAME" to save the changes.</li>
                     </ul>
                 </p>
@@ -223,7 +223,7 @@
                 <p>
                     <b>3. Deleting a Data Set:</b> 
                     <ul>
-                        <li>To delete a data set, click the trash can icon (<a uk-icon="trash" class="red delete" uk-tooltip="DELETE" href="#delete_dataset_modal" uk-toggle v-on:click="openDeleteDataSet(dataset.name, dataset.uuid)"></a>) next to the data set.</li>
+                        <li>To delete a data set, click the trash can icon (<a uk-icon="trash" class="red delete" uk-tooltip="DELETE"></a>) next to the data set.</li>
                         <li>Confirm the deletion when prompted to permanently remove the data set.</li>
                     </ul>
                 </p>
@@ -239,21 +239,21 @@
                 <p>
                     <b>4. Viewing a Map:</b> 
                     <ul>
-                        <li>Click the data set name to view the map associated with that data set.</li>
+                        <li>Click the data set name or the map icon (<a class="uk-button uk-button-default uk-button-default" uk-icon="location" uk-tooltip="VIEW MAP"></a>)to view the map associated with that data set.</li>
                     </ul>
                 </p>
                 
                 <p>
                     <b>5. Taking a Screenshot:</b> 
                     <ul>
-                        <li>Click the camera icon (<a class="uk-button uk-button-default uk-button-default" uk-icon="camera" uk-tooltip="SCREENSHOT" v-on:click="screenshot"></a>) to capture a screenshot of the current map view.</li>
+                        <li>Click the camera icon (<a class="uk-button uk-button-default uk-button-default" uk-icon="camera" uk-tooltip="SCREENSHOT"></a>) to capture a screenshot of the current map view.</li>
                     </ul>
                 </p>
                 
                 <p>
                     <b>6. Getting a Permalink:</b> 
                     <ul>
-                        <li>Click the link icon (<a class="uk-button uk-button-default uk-button-default" uk-icon="link" uk-tooltip="PERMALINK" href="#permalink_map_modal" uk-toggle></a>) to obtain a permalink for the map's current view. You can copy and share this link with others.</li>
+                        <li>Click the link icon (<a class="uk-button uk-button-default uk-button-default" uk-icon="link" uk-tooltip="PERMALINK"></a>) to obtain a permalink for the map's current view. You can copy and share this link with others.</li>
                     </ul>
                 </p>
             </div>
