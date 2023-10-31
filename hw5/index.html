@@ -35,9 +35,39 @@
 
     <link rel="stylesheet" href="index.css" />
 
+    <style>
+        /* Added CSS styles for documentation */
+        .help-tooltip {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 3px;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        /* Style on hover to show documentation */
+        .uk-button:hover + .help-tooltip,
+        [uk-tooltip]:hover + .help-tooltip {
+            display: block;
+        }
+
+        /* Style for tooltip positioning */
+        .uk-button:hover + .help-tooltip {
+            margin-left: 10px;
+        }
+
+    </style>
+
 </head>
 
 <body class="uk-height-viewport uk-width-1-1" uk-grid>
+
+  
+
+
     <div class="uk-width-1-6"></div>
     <div id="app" class="uk-height-viewport uk-width-2-3">
         <ul class="uk-subnav uk-subnav-pill uk-width-1-1" uk-switcher>
@@ -49,6 +79,8 @@
             <li>
                 <a class="uk-button uk-button-default" uk-toggle="target: #add_dataset_modal"
                     v-on:click="openCreateDataSet"><span uk-icon="plus" uk-tooltip="ADD DATA SET"></span></a>
+                    <!-- Documentation -->
+                    <div class="help-tooltip">Click this button to add a new data set. You can upload .json files to create datasets.</div>
 
                 <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #datasets_help_modal">
                     <span uk-icon="info" uk-tooltip="HELP"></span></a>
@@ -177,23 +209,28 @@
             <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="uk-modal-title">Help Documentation</h2>
                 <p>
-                    <b>1. Getting Started:</b>
-                    <ul>
-                        <li><b>Accessing the Website:</b> Open your web browser and enter the website's URL.</li>
-                        <li><b>Creating an Account:</b> Click the "Sign Up" button on the homepage and follow the on-screen instructions to create your account.</li>
-                        <li><b>Navigating the Homepage:</b> The homepage provides an overview of recent content. Use the navigation menu on the left to access different sections of the website.</li>
-                    </ul>
-                </p>
-                <p>
-                    <b>2. Managing Data Sets:</b>
-                    <ul>
-                        <li><b>Adding a Data Set:</b> Click the "Data Sets" tab to view your existing data sets. Click the "ADD DATA SET" button to create a new data set. Provide a name and upload a JSON file.</li>
-                        <li><b>Renaming a Data Set:</b> Click the pencil icon next to a data set's name, enter the new name, and click "RENAME."</li>
-                        <li><b>Uploading Data:</b> To upload data to an existing data set, click the "UPLOAD" icon next to the data set. Choose a JSON file to upload.</li>
-                        <li><b>Deleting a Data Set:</b> To delete a data set, click the trash can icon next to the data set and confirm the deletion when prompted.</li>
-                        <li><b>Permalinking a Data Set:</b> Click the "PERMALINK" icon next to the data set and copy the provided permalink to share your data set.</li>
-                    </ul>
-                </p>
+    <b>1. Adding a Data Set:</b> 
+    <ul>
+        <li>Click the <a class="uk-button uk-button-default" uk-toggle="target: #add_dataset_modal" v-on:click="openCreateDataSet">ADD DATA SET</a> button.</li>
+        <li>Upload a JSON file to create a new data set. You can add multiple .json files at once, and the application will auto-populate data set names with the corresponding file names.</li>
+    </ul>
+</p>
+
+<p>
+    <b>2. Renaming a Data Set:</b> 
+    <ul>
+        <li>Click the pencil icon (<a uk-icon="pencil" class="rename" uk-tooltip="RENAME" href="#rename_dataset_modal" uk-toggle v-on:click="openRenameDataSet(dataset.name)"></a>) next to a data set's name.</li>
+        <li>Enter the new name for the data set and click "RENAME" to save the changes.</li>
+    </ul>
+</p>
+
+<p>
+    <b>3. Deleting a Data Set:</b> 
+    <ul>
+        <li>To delete a data set, click the trash can icon (<a uk-icon="trash" class="red delete" uk-tooltip="DELETE" href="#delete_dataset_modal" uk-toggle v-on:click="openDeleteDataSet(dataset.name, dataset.uuid)"></a>) next to the data set.</li>
+        <li>Confirm the deletion when prompted to permanently remove the data set.</li>
+    </ul>
+</p>
                 <p class="uk-text-right">
                     <button class="uk-button uk-button-danger uk-modal-close" type="button">CLOSE</button>
                 </p>
@@ -204,15 +241,24 @@
             <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="uk-modal-title">Help Documentation</h2>
                 <p>
-                    <b>4. Interactive Map View:</b>
+                    <b>4. Viewing a Map:</b> 
                     <ul>
-                        <li><b>Taking a Screenshot:</b> Click the camera icon to take a screenshot of the current map view.</li>
-                        <li><b>Using Permalinks:</b> Click the "PERMALINK" icon to get a permalink for the map's current view.</li>
+                        <li>Click the data set name to view the map associated with that data set. (<a uk-tooltip="VIEW MAP" uk-switcher-item="1" v-on:click="openMap()">{{ dataset.name }}</a>)</li>
                     </ul>
                 </p>
-        
-                <p class="uk-text-right">
-                    <button class="uk-button uk-button-danger uk-modal-close" type="button">CLOSE</button>
+                
+                <p>
+                    <b>5. Taking a Screenshot:</b> 
+                    <ul>
+                        <li>Click the camera icon (<a class="uk-button uk-button-default uk-button-default" uk-icon="camera" uk-tooltip="SCREENSHOT" v-on:click="screenshot"></a>) to capture a screenshot of the current map view.</li>
+                    </ul>
+                </p>
+                
+                <p>
+                    <b>6. Getting a Permalink:</b> 
+                    <ul>
+                        <li>Click the link icon (<a class="uk-button uk-button-default uk-button-default" uk-icon="link" uk-tooltip="PERMALINK" href="#permalink_map_modal" uk-toggle></a>) to obtain a permalink for the map's current view. You can copy and share this link with others.</li>
+                    </ul>
                 </p>
             </div>
         </div>
