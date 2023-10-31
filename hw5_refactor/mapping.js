@@ -30,11 +30,6 @@ function clearOldLayers() {
   console.log(geoJsonLayers);
 }
 
-function getGeoJsonData(datasetData) {
-  const datasetUuid = datasetData.uuid;
-  return geoJsonDataObject[datasetUuid];
-}
-
 function plotGeoJsonData(datasetData, geoJsonData) {
   console.log(geoJsonData)
   map.invalidateSize();
@@ -67,19 +62,23 @@ function fitAllBounds() {
   map.fitBounds(combinedBounds);
 }
 
-async function addNewDataSetToMap() {
-  console.log(mapData);
-  clearOldLayers();
+async function updateMap () {
 
-  for (dataset in mapData) {
-    mapName = dataset;
-    for(uuid in mapData[dataset]) {
-      const geoJsonDetails = getGeoJsonData(mapData[dataset][uuid]);
-      if (geoJsonDetails) {
-        await plotGeoJsonData(mapData[dataset][uuid], geoJsonDetails);
-      } else {
-        console.error("GeoJSON data not found for dataset:", dataset);
-      }
+  clearOldLayers()
+
+  console.log("Update Map");
+
+  const remodel = window.appData.remodel;
+
+  for (dataset_uuid in remodel.datasets) {
+    let datasetData = remodel.datasets[dataset_uuid];
+    console.log(`Adding dataset ${datasetData.name}`);
+
+    const geoJsonDetails = geoJsonDataObject[dataset_uuid];
+    if (geoJsonDetails) {
+      await plotGeoJsonData(datasetData, geoJsonDetails);
+    } else {
+      console.error("GeoJSON data not found for dataset:", dataset);
     }
   }
   fitAllBounds();
@@ -87,4 +86,4 @@ async function addNewDataSetToMap() {
 
 window.addEventListener("load", main);
 
-UIkit.util.on("#render_map", "show", addNewDataSetToMap);
+UIkit.util.on("#render_map", "show", updateMap);

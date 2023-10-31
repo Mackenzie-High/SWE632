@@ -68,7 +68,7 @@ const model = {
 const remodel = reactive(model);
 
 window.appData = {
-  map: remodel.currentMapData,
+  remodel: remodel
 };
 
 const VueApp = {
@@ -123,20 +123,10 @@ VueApp.methods.openDeleteDataSet = function (name, uuid) {
   remodel.delete_dataset_modal.uuid = uuid;
 };
 
-VueApp.methods.openMap = function (mapName) {
-  for (mapDataName in remodel.currentMapData) {
-    delete remodel.currentMapData[mapDataName];
-  }
-  console.log("Clearing old map data... opening map...");
+VueApp.methods.openMap = async function (mapName) {
 
-  const dataSetInfo = [];
-  for (uuid in remodel.maps[mapName].datasetList) {
-    const dataSetDetails = remodel.datasets[uuid];
-    dataSetDetails.color = remodel.maps[mapName].datasetList[uuid];
-    dataSetInfo.push(dataSetDetails);
-  }
-  remodel.currentMapData[mapName] = dataSetInfo;
-  console.log(remodel.currentMapData);
+  console.log("Open Map");
+  await updateMap(remodel);
 
   // Cause the "Map" tab to become visible in the switcher bar,
   // which is located at the top of the page.
