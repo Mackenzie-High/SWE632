@@ -100,11 +100,17 @@
                             </td>
 
                             <td>
-                                <a uk-icon="location" uk-tooltip="VIEW MAP" uk-switcher-item="1"
+                                <!-- Remove for HW6.
+                                <a uk-icon="location" uk-tooltip="VIEW MAP" aria-label="Open the map view." uk-switcher-item="1"
                                         v-on:click="openMap()"></a>
-                                <a uk-icon="pencil" class="rename" uk-tooltip="RENAME" href="#rename_dataset_modal"
+                                -->
+                                <a uk-icon="pencil" class="rename" uk-tooltip="RENAME"
+                                    aria-label="Rename the route."
+                                    href="#rename_dataset_modal"
                                     uk-toggle v-on:click="openRenameDataSet(dataset.name)"></a>
-                                <a uk-icon="trash" class="red delete" uk-tooltip="DELETE" href="#delete_dataset_modal"
+                                <a uk-icon="trash" class="red delete" uk-tooltip="DELETE"
+                                    aria-label="Delete the route."
+                                    href="#delete_dataset_modal"
                                     uk-toggle v-on:click="openDeleteDataSet(dataset.name, dataset.uuid)"></a>
                             </td>
                         </tr>
@@ -119,8 +125,11 @@
                         <a class="uk-button uk-button-default uk-button-default"><span uk-icon="camera"
                                 uk-tooltip="SCREENSHOT" v-on:click="screenshot"></span></a>
                         &nbsp;&nbsp;&nbsp;
-                        <a class="uk-button uk-button-default uk-button-default" uk-icon="link" uk-tooltip="PERMALINK"
-                            href="#permalink_map_modal" uk-toggle></a>
+                        <a class="uk-button uk-button-default uk-button-default" uk-icon="link"
+                            uk-tooltip="PERMALINK"
+                            aria-label="Display permalink to map."
+                            href="#permalink_map_modal" uk-toggle>
+                        </a>
                     </div>
                         
                     <div>
