@@ -124,8 +124,16 @@ VueApp.methods.openDeleteDataSet = function (name, uuid) {
   remodel.delete_dataset_modal.uuid = uuid;
 };
 
-VueApp.methods.openMap = async function (mapName) {
+VueApp.methods.updateMapAfterSelection = async function(uuid) {
+  remodel.datasets[uuid].selected = !remodel.datasets[uuid].selected;
+  await updateMap(remodel);
+};
 
+VueApp.methods.updateMapAfterColorChange = async function() {
+  await updateMap(remodel);
+};
+
+VueApp.methods.openMap = async function (mapName) {
   console.log("Open Map");
   await updateMap(remodel);
 
@@ -134,7 +142,21 @@ VueApp.methods.openMap = async function (mapName) {
   document.getElementById("map-switcher-tab").classList.remove("uk-invisible");
 };
 
-VueApp.methods.createDataSet = function (event) {
+VueApp.methods.generateColor = function() {
+  const r = Math.floor(Math.random() * 256);
+  const g = Math.floor(Math.random() * 256);
+  const b = Math.floor(Math.random() * 256);
+
+  const hexR = r.toString(16).padStart(2, '0');
+  const hexG = g.toString(16).padStart(2, '0');
+  const hexB = b.toString(16).padStart(2, '0');
+
+  const hexColor = `#${hexR}${hexG}${hexB}`;
+
+  return hexColor;
+};
+
+VueApp.methods.createDataSet = async function (event) {
   try {
     console.log("Create DataSet");
     
@@ -168,7 +190,7 @@ VueApp.methods.createDataSet = function (event) {
       }
 
       const uuid = uuidV4();
-      const row = { uuid: uuid, name: upload.name, signature: upload.signature, color: "#FF69B4"};
+      const row = { uuid: uuid, selected: true, name: upload.name, signature: upload.signature, color: VueApp.methods.generateColor()};
       remodel.datasets[uuid] = row;
       console.log(row);
 
@@ -178,42 +200,51 @@ VueApp.methods.createDataSet = function (event) {
     UIkit.notification({message: 'Successfully created dataset!', status: 'success'});
     
   } finally {
+    await updateMap(remodel);
     remodel.dataToBeUploadedTemp = [];
   }
 };
 
-VueApp.methods.renameDataSet = function (event) {
-  console.log("Rename DataSet");
-  console.log(event);
+VueApp.methods.renameDataSet = async function (event) {
+  try {
+    console.log("Rename DataSet");
+    console.log(event);
 
-  const duplicateNewNameUuid = VueApp.methods.findDatasetUuidFromName(remodel.rename_dataset_modal.new_name);
-  if (remodel.datasets[duplicateNewNameUuid] !== undefined) {
-    UIkit.modal.alert(`ERROR: Duplicate dataset: ${remodel.rename_dataset_modal.new_name}`);
-    return;
-  }
-
-  for (dataset in remodel.datasets) {
-    if (remodel.datasets[dataset].name == remodel.rename_dataset_modal.old_name.trim()) {
-      remodel.datasets[dataset].name = remodel.rename_dataset_modal.new_name.trim();
-      break;
+    const duplicateNewNameUuid = VueApp.methods.findDatasetUuidFromName(remodel.rename_dataset_modal.new_name);
+    if (remodel.datasets[duplicateNewNameUuid] !== undefined) {
+      UIkit.modal.alert(`ERROR: Duplicate dataset: ${remodel.rename_dataset_modal.new_name}`);
+      return;
     }
+
+    for (dataset in remodel.datasets) {
+      if (remodel.datasets[dataset].name == remodel.rename_dataset_modal.old_name.trim()) {
+        remodel.datasets[dataset].name = remodel.rename_dataset_modal.new_name.trim();
+        break;
+      }
+    }
+  } finally {
+    await updateMap(remodel);
   }
 };
 
-VueApp.methods.deleteDataSet = function (event) {
-  console.log("Delete DataSet");
-  const uuid = remodel.delete_dataset_modal.uuid
-  delete remodel.datasets[uuid];
+VueApp.methods.deleteDataSet = async function (event) {
+  try {
+    console.log("Delete DataSet");
+    const uuid = remodel.delete_dataset_modal.uuid
+    delete remodel.datasets[uuid];
 
-  for (mapKey in remodel.maps) {
-    const map = remodel.maps[mapKey];
+    for (mapKey in remodel.maps) {
+      const map = remodel.maps[mapKey];
 
-    if (map.datasetList.hasOwnProperty(uuid)) {
-      delete map.datasetList[uuid];
+      if (map.datasetList.hasOwnProperty(uuid)) {
+        delete map.datasetList[uuid];
+      }
     }
-  }
 
-  console.log(remodel.datasets)
+    console.log(remodel.datasets)
+  } finally {
+    await updateMap(remodel);
+  }
 };
 
 VueApp.methods.findDatasetUuidFromName = function(name) {

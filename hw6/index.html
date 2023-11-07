@@ -35,114 +35,87 @@
 
     <link rel="stylesheet" href="index.css" />
 
-    <style>
-        /* Added CSS styles for documentation */
-        .help-tooltip {
-            display: none;
-            position: absolute;
-            background-color: #333;
-            color: #fff;
-            padding: 5px;
-            border-radius: 3px;
-            font-size: 14px;
-            margin-left: 10px;
-        }
-
-        /* Style on hover to show documentation */
-        .uk-button:hover + .help-tooltip,
-        [uk-tooltip]:hover + .help-tooltip {
-            display: block;
-        }
-
-        /* Style for tooltip positioning */
-        .uk-button:hover + .help-tooltip {
-            margin-left: 10px;
-        }
-
-    </style>
-
 </head>
 
-<body class="uk-height-viewport uk-width-1-1" uk-grid>
-    <div class="uk-width-1-6"></div>
-    <div id="app" class="uk-height-viewport uk-width-2-3">
-        <ul class="uk-subnav uk-subnav-pill uk-width-1-1" uk-switcher>
-            <li><a href="#">Data Sets</a></li>
-            <li><a href="#" id="map-switcher-tab">Map</a></li>
-        </ul>
+<body>
+    <div id="app">
+        <div class="uk-container">
+            <div class="uk-grid uk-height-viewport">
+                <div class="uk-width-1-2">
+                    <a class="uk-button uk-button-default" uk-toggle="target: #add_dataset_modal"
+                        v-on:click="openCreateDataSet"><span uk-icon="plus" uk-tooltip="ADD DATA SET"></span></a>
+                        <!-- Documentation -->
+                        <div class="help-tooltip">Click this button to add a new data set. You can upload .json files to create datasets.</div>
 
-        <ul class="uk-switcher uk-margin uk-height-1-1 uk-width-1-1">
-            <li>
-                <a class="uk-button uk-button-default" uk-toggle="target: #add_dataset_modal"
-                    v-on:click="openCreateDataSet"><span uk-icon="plus" uk-tooltip="ADD DATA SET"></span></a>
-                    <!-- Documentation -->
-                    <div class="help-tooltip">Click this button to add a new data set. You can upload .json files to create datasets.</div>
+                    <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #datasets_help_modal">
+                        <span uk-icon="info" uk-tooltip="HELP"></span></a>
+                    <div class="custom-table">
+                        <table class="uk-table uk-table-striped uk-table-hover custom-table">
+                            <thead>
+                                <tr>
+                                    <th>Plot</th>
+                                    <th class="uk-width-2-3">Data Set Name</th>
+                                    <th class="uk-width-1-6">Color</th>
+                                    <th class="uk-width-1-6">Actions</th>
+                                <tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(dataset, key) in datasets">
+                                    <td>
+                                        <input class="uk-checkbox" type="checkbox" v-model="dataset.selected" @input="updateMapAfterSelection(dataset.uuid)"/>
+                                    </td>
+                                    <td>
+                                        <p>{{ dataset.name }}</p>
+                                    </td>
 
-                <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #datasets_help_modal">
-                    <span uk-icon="info" uk-tooltip="HELP"></span></a>
-                    
-                <table class="uk-table  uk-table-striped uk-table-hover">
-                    <thead>
-                        <tr>
-                            <th class="uk-width-2-3">Data Set Name</th>
-                            <th class="uk-width-1-6">Color</th>
-                            <th class="uk-width-1-6">Actions</th>
-                        <tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(dataset, key) in datasets">
-                            <td>
-                                <a uk-tooltip="VIEW MAP" uk-switcher-item="1" v-on:click="openMap()">{{ dataset.name }}</a>
-                            </td>
+                                    <td>
+                                        <input type="color" v-model="dataset.color" @input="updateMapAfterColorChange()"/>
+                                    </td>
 
-                            <td>
-                                <input type="color" v-model="dataset.color" />
-                            </td>
-
-                            <td>
-                                <!-- Remove for HW6.
-                                <a uk-icon="location" uk-tooltip="VIEW MAP" aria-label="Open the map view." uk-switcher-item="1"
-                                        v-on:click="openMap()"></a>
-                                -->
-                                <a uk-icon="pencil" class="rename" uk-tooltip="RENAME"
-                                    aria-label="Rename the route."
-                                    href="#rename_dataset_modal"
-                                    uk-toggle v-on:click="openRenameDataSet(dataset.name)"></a>
-                                <a uk-icon="trash" class="red delete" uk-tooltip="DELETE"
-                                    aria-label="Delete the route."
-                                    href="#delete_dataset_modal"
-                                    uk-toggle v-on:click="openDeleteDataSet(dataset.name, dataset.uuid)"></a>
-                            </td>
-                        </tr>
-                    <tbody>
-                </table>
-            </li>
-
-            <li id="render_map" class="uk-height-1-1 uk-width-1-1">
-                <div class="uk-flex uk-flex-row uk-flex-between uk-padding-remove uk-margin-remove">
-                
-                    <div>
-                        <a class="uk-button uk-button-default uk-button-default"><span uk-icon="camera"
-                                uk-tooltip="SCREENSHOT" v-on:click="screenshot"></span></a>
-                        &nbsp;&nbsp;&nbsp;
-                        <a class="uk-button uk-button-default uk-button-default" uk-icon="link"
-                            uk-tooltip="PERMALINK"
-                            aria-label="Display permalink to map."
-                            href="#permalink_map_modal" uk-toggle>
-                        </a>
-                    </div>
-                        
-                    <div>
-                        <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #map_help_modal">
-                            <span uk-icon="info" uk-tooltip="HELP"></span></a>
+                                    <td>
+                                        <!-- Remove for HW6.
+                                        <a uk-icon="location" uk-tooltip="VIEW MAP" aria-label="Open the map view." uk-switcher-item="1"
+                                                v-on:click="openMap()"></a>
+                                        -->
+                                        <a uk-icon="pencil" class="rename" uk-tooltip="RENAME"
+                                            aria-label="Rename the route."
+                                            href="#rename_dataset_modal"
+                                            uk-toggle v-on:click="openRenameDataSet(dataset.name)"></a>
+                                        <a uk-icon="trash" class="red delete" uk-tooltip="DELETE"
+                                            aria-label="Delete the route."
+                                            href="#delete_dataset_modal"
+                                            uk-toggle v-on:click="openDeleteDataSet(dataset.name, dataset.uuid)"></a>
+                                    </td>
+                                </tr>
+                            <tbody>
+                        </table>
                     </div>
                 </div>
-                <h4 class="uk-text-center uk-padding-remove uk-margin-remove">{{ current_map.name }}</h4>
-                <div class="uk-height-1-1 uk-width-1-1 uk-margin uk-object-contain">
-                    <div id="map" class="uk-height-1-1 uk-width-1-1"></div>
+
+                <div class="uk-width-1-2">
+                    <div class="uk-flex uk-flex-row uk-flex-between uk-padding-remove uk-margin-remove">
+                        <div>
+                            <a class="uk-button uk-button-default uk-button-default"><span uk-icon="camera"
+                                    uk-tooltip="SCREENSHOT" v-on:click="screenshot"></span></a>
+                            &nbsp;&nbsp;&nbsp;
+                            <a class="uk-button uk-button-default uk-button-default" uk-icon="link"
+                                uk-tooltip="PERMALINK"
+                                aria-label="Display permalink to map."
+                                href="#permalink_map_modal" uk-toggle>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #map_help_modal">
+                                <span uk-icon="info" uk-tooltip="HELP"></span></a>
+                        </div>
+                    </div>
+                    <h4 class="uk-text-center uk-padding-remove uk-margin-remove">{{ current_map.name }}</h4>
+                    <div class="uk-height-1-1 uk-width-1-1">
+                        <div id="map" class="uk-height-1-1 uk-width-1-1"></div>
+                    </div>
                 </div>
-            </li>
-        </ul>
+            </div>
+        </div>
 
         <div id="add_dataset_modal" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">

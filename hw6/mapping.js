@@ -8,7 +8,7 @@ var mapName = "";
 async function main() {
   console.log("Creating initial map...");
 
-  map = L.map("map").setView([38.9, -77.3], 13);
+  map = L.map("map").setView([38.8315, -77.3117], 14);
   L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: "© OpenStreetMap",
@@ -34,11 +34,6 @@ function plotGeoJsonData(datasetData, geoJsonData) {
   console.log(geoJsonData)
   map.invalidateSize();
 
-  const coordinates = geoJsonData.features[0].geometry.coordinates;
-  const coordinatesLength = coordinates.length;
-  const firstCoor = coordinates[0];
-  const lastCoor = coordinates[coordinatesLength - 1];
-
   geoJsonLayer = L.geoJSON(geoJsonData, {
     style: {
       color: datasetData.color,
@@ -58,6 +53,11 @@ function plotGeoJsonData(datasetData, geoJsonData) {
   geoJsonLayers.push(geoJsonLayer);
   console.log("Should have added the layer...");
 
+  // const coordinates = geoJsonData.features[0].geometry.coordinates;
+  // const coordinatesLength = coordinates.length;
+  // const firstCoor = coordinates[0];
+  // const lastCoor = coordinates[coordinatesLength - 1];
+  //
   // const markerIcon = L.divIcon({
   //   className: "custom-marker",
   //   html: '<div style="background-color: ' + datasetData.color + ';" class="marker"></div>',
@@ -77,23 +77,26 @@ function fitAllBounds() {
 async function updateMap () {
 
   clearOldLayers()
-
   console.log("Update Map");
 
   const remodel = window.appData.remodel;
+  var atleastOnePlottedRoute = false;
 
   for (dataset_uuid in remodel.datasets) {
     let datasetData = remodel.datasets[dataset_uuid];
     console.log(`Adding dataset ${datasetData.name}`);
 
     const geoJsonDetails = geoJsonDataObject[dataset_uuid];
-    if (geoJsonDetails) {
+    if (geoJsonDetails && datasetData.selected) {
+      atleastOnePlottedRoute = true;
       await plotGeoJsonData(datasetData, geoJsonDetails);
     } else {
-      console.error("GeoJSON data not found for dataset:", dataset);
+      console.log("GeoJSON data not plotted for dataset:", datasetData);
     }
   }
-  fitAllBounds();
+  if (atleastOnePlottedRoute) {
+    fitAllBounds();
+  }
 }
 
 window.addEventListener("load", main);

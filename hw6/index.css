@@ -7,4 +7,40 @@
 
 #map {
     width: 100%;
+    max-height: calc(100vh - 150px); /* Adjust 150px as needed to account for other elements on your page */
+    height: 100%;
+}
+
+.custom-table {
+    max-height: calc(100vh - 150px); /* Adjust 150px as needed to account for other elements on your page */
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.uk-container {
+    height: 100%;
+}
+
+/* Added CSS styles for documentation */
+.help-tooltip {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 14px;
+    margin-left: 10px;
+}
+
+/* Style on hover to show documentation */
+.uk-button:hover + .help-tooltip,
+[uk-tooltip]:hover + .help-tooltip {
+    display: block;
+}
+
+/* Style for tooltip positioning */
+.uk-button:hover + .help-tooltip {
+    margin-left: 10px;
 }
