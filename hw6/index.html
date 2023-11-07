@@ -43,12 +43,9 @@
             <div class="uk-grid uk-height-viewport">
                 <div class="uk-width-1-2">
                     <a class="uk-button uk-button-default" uk-toggle="target: #add_dataset_modal"
-                        v-on:click="openCreateDataSet"><span uk-icon="plus" uk-tooltip="ADD DATA SET"></span></a>
-                        <!-- Documentation -->
-                        <div class="help-tooltip">Click this button to add a new data set. You can upload .json files to create datasets.</div>
+                        v-on:click="openCreateDataSet"><span uk-icon="plus" uk-tooltip="Click this button to add a new data set. You can upload .json files to create datasets."></span></a>
 
-                    <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #datasets_help_modal">
-                        <span uk-icon="info" uk-tooltip="HELP"></span></a>
+
                     <div class="custom-table">
                         <table class="uk-table uk-table-striped uk-table-hover custom-table">
                             <thead>
@@ -183,11 +180,11 @@
             </div>
         </div>
         
-        <div id="datasets_help_modal" uk-modal>
+        <div id="map_help_modal" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="uk-modal-title">Help Documentation</h2>
                 <p>
-                    <b>1. Adding a Data Set:</b> 
+                    <b>1. Adding a Data Set:</b>
                     <ul>
                         <li>Click the <a class="uk-button uk-button-default">ADD DATA SET</a> button.</li>
                         <li>Upload a JSON file to create a new data set. You can add multiple .json files at once, and the application will auto-populate data set names with the corresponding file names.</li>
@@ -195,7 +192,7 @@
                 </p>
 
                 <p>
-                    <b>2. Renaming a Data Set:</b> 
+                    <b>2. Renaming a Data Set:</b>
                     <ul>
                         <li>Click the pencil icon (<a uk-icon="pencil" class="rename" uk-tooltip="RENAME"></a>) next to a data set's name.</li>
                         <li>Enter the new name for the data set and click "RENAME" to save the changes.</li>
@@ -203,21 +200,12 @@
                 </p>
 
                 <p>
-                    <b>3. Deleting a Data Set:</b> 
+                    <b>3. Deleting a Data Set:</b>
                     <ul>
                         <li>To delete a data set, click the trash can icon (<a uk-icon="trash" class="red delete" uk-tooltip="DELETE"></a>) next to the data set.</li>
                         <li>Confirm the deletion when prompted to permanently remove the data set.</li>
                     </ul>
                 </p>
-                <p class="uk-text-right">
-                    <button class="uk-button uk-button-danger uk-modal-close" type="button">CLOSE</button>
-                </p>
-            </div>
-        </div>
-        
-        <div id="map_help_modal" uk-modal>
-            <div class="uk-modal-dialog uk-modal-body">
-                <h2 class="uk-modal-title">Help Documentation</h2>
                 <p>
                     <b>4. Viewing a Map:</b> 
                     <ul>
