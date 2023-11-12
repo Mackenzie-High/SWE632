@@ -14,8 +14,9 @@
 .custom-table {
     max-height: calc(100vh - 150px); /* Adjust 150px as needed to account for other elements on your page */
     width: 100%;
-    overflow-x: auto;
+    max-width: 100%;
     overflow-y: auto;
+    table-layout: fixed;
 }
 
 .uk-container {
