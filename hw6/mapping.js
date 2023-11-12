@@ -53,16 +53,16 @@ function plotGeoJsonData(datasetData, geoJsonData) {
   geoJsonLayers.push(geoJsonLayer);
   console.log("Should have added the layer...");
 
-  const coordinates = geoJsonData.features[0].geometry.coordinates;
-  const coordinatesLength = coordinates.length;
-  const firstCoor = coordinates[0];
-  const lastCoor = coordinates[coordinatesLength - 1];
-  const markerIcon = L.divIcon({
-    className: "custom-marker",
-    html: '<div style="background-color: ' + 'orange' + ';" class="marker"></div>',
-  });
-  L.marker([firstCoor[1], firstCoor[0]]).addTo(map);
-  L.marker([lastCoor[1], lastCoor[0]]).addTo(map);
+  // const coordinates = geoJsonData.features[0].geometry.coordinates;
+  // const coordinatesLength = coordinates.length;
+  // const firstCoor = coordinates[0];
+  // const lastCoor = coordinates[coordinatesLength - 1];
+  // const markerIcon = L.divIcon({
+  //   className: "custom-marker",
+  //   html: '<div style="background-color: ' + 'orange' + ';" class="marker"></div>',
+  // });
+  // L.marker([firstCoor[1], firstCoor[0]]).addTo(map);
+  // L.marker([lastCoor[1], lastCoor[0]]).addTo(map);
 }
 
 function fitAllBounds() {
