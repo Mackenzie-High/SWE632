@@ -24,6 +24,10 @@
 }
 
 /* Added CSS styles for documentation */
+#map_help_modal ul{
+    margin-top: 3px;
+}
+
 .help-tooltip {
     display: none;
     position: absolute;

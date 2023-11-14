@@ -42,7 +42,7 @@ function plotGeoJsonData(datasetData, geoJsonData) {
     onEachFeature: function (feature, layer) {
       if (datasetData.name) {
         layer.bindPopup(
-            "Data Set Name: <b>" +
+            "Route Name: <b>" +
             datasetData.name +
             "</b>"
         );
