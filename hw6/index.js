@@ -60,6 +60,8 @@ const model = {
   },
 
   currentMapData: {},
+
+  allSelected: true,
 };
 
 // Deeply Reactive Data Model,
@@ -203,6 +205,18 @@ VueApp.methods.createDataSet = async function (event) {
   } finally {
     await updateMap(remodel);
     remodel.dataToBeUploadedTemp = [];
+  }
+};
+
+VueApp.methods.selectAll = async function () {
+  try {
+    remodel.allSelected = !remodel.allSelected;
+    for (dataset_uuid in remodel.datasets) {
+      let datasetData = remodel.datasets[dataset_uuid];
+      datasetData.selected = remodel.allSelected;
+    }
+  } finally {
+    await updateMap(remodel);
   }
 };
 
