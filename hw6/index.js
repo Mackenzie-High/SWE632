@@ -109,6 +109,7 @@ VueApp.methods.openCreateDataSet = function (name) {
 VueApp.methods.openRenameDataSet = function (name) {
   console.log("Open Rename DataSet");
   remodel.rename_dataset_modal.old_name = name;
+  remodel.rename_dataset_modal.new_name = "";
 };
 
 VueApp.methods.openUploadDataSet = function (name, uuid) {
@@ -223,6 +224,7 @@ VueApp.methods.renameDataSet = async function (event) {
       }
     }
   } finally {
+    remodel.rename_dataset_modal.new_name = "";
     await updateMap(remodel);
   }
 };

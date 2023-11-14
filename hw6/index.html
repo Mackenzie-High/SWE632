@@ -62,7 +62,7 @@
                                         <input class="uk-checkbox" type="checkbox" v-model="dataset.selected" @input="updateMapAfterSelection(dataset.uuid)"/>
                                     </td>
                                     <td>
-                                        <p class="uk-text-truncate">{{ dataset.name }}</p>
+                                        <p class="uk-text-truncate" :title="dataset.name">{{ dataset.name }}</p>
                                     </td>
 
                                     <td>
