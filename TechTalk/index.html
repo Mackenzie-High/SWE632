@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>UIkit Tech Talk</title>
+		<link rel="icon" href="img/favicon.ico">
+		<!-- CSS FILES -->
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/uikit@latest/dist/css/uikit.min.css">
+	</head>
+	<body>
+		<!--HEADER-->
+		<header>
+			<div class="uk-container">
+				<nav class="uk-navbar-transparent" data-uk-navbar>
+					<div class="uk-navbar-left">
+						<a class="uk-navbar-item uk-logo" href="#">
+							<img src="https://cdn.worldvectorlogo.com/logos/uikit.svg" class="uk-margin-small-right" width="65" alt="UIkit">
+							Group #9</a>
+					</div>
+					<div class="uk-navbar-center uk-visible@m">
+						<ul class="uk-navbar-nav">
+							<li class="uk-active"><a href="#">Active Selection</a></li>
+							<li>
+								<a href="#">Sample Nav Bar <span data-uk-icon="icon: triangle-down"></span></a>
+								<div class="uk-navbar-dropdown">
+									<ul class="uk-nav uk-navbar-dropdown-nav">
+										<li><a href="#">Sample 1</a></li>
+										<li><a href="#">Sample 2</a></li>
+										<li><a href="#">Sample 3</a></li>
+										<li><a href="#">Sample 4</a></li>
+										<li><a href="#">Sample 5</a></li>
+									</ul>
+								</div>
+							</li>
+							<li><a href="#">Inactive Selection</a></li>
+						</ul>
+					</div>
+					<div class="uk-navbar-right">
+						<ul class="uk-navbar-nav">
+							<li>
+								<a href="#" data-uk-icon="icon:user"></a>
+								<div class="uk-navbar-dropdown uk-navbar-dropdown-bottom-left">
+									<ul class="uk-nav uk-navbar-dropdown-nav">
+										<li class="uk-nav-header uk-text-small uk-text-primary">YOUR ACCOUNT</li>
+										<li><a href="#"><span data-uk-icon="icon: info"></span> Summary</a></li>
+										<li><a href="#"><span data-uk-icon="icon: refresh"></span> Edit</a></li>
+										<li><a href="#"><span data-uk-icon="icon: settings"></span> Configuration</a></li>
+										<li class="uk-nav-divider"></li>
+										<li><a href="#"><span data-uk-icon="icon: image"></span> Your Pictures</a></li>
+										<li class="uk-nav-divider"></li>
+										<li><a href="#"><span data-uk-icon="icon: sign-out"></span> Logout</a></li>
+										
+									</ul>
+								</div>
+							</li>
+							<li class="uk-hidden@m"><a class="uk-navbar-toggle" data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav"></a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</header>
+		<!--/HEADER-->
+		
+		<!--HERO-->
+		<section class="uk-section uk-section-large uk-section-secondary">
+			<div class="uk-container uk-container-small uk-text-center">
+				<h1>UIkit</h1>
+				<h4>Version 3.17.8</h4>
+				<p class="uk-text-large">A CSS Framework developed by YooThemes.</p>
+				<div data-uk-margin>
+					<a class="uk-button uk-button-default" href="#modal-center" data-uk-toggle>Our Team</a>
+					<a class="uk-button uk-button-default" href="#modal-media-vimeo" data-uk-toggle>Demonstration Video</a>
+					<a class="uk-button uk-button-primary" href="#progress-bar" data-uk-toggle>Thanks!</a>
+				</div>
+			</div>
+		</section>
+		<!--/HERO-->
+		<!-- INFO -->
+		<section class="uk-section uk-section-default uk-box-shadow-small uk-section-xsmall">
+			<div class="uk-container">
+				<div class="uk-grid uk-grid-small uk-flex uk-flex-middle" data-uk-grid>
+					<div class="uk-width-auto">
+						<img src="https://images.footballfanatics.com/george-mason-patriots/green-george-mason-patriots-20-x-20-indoor/outdoor-circle-sign_pi4952000_ff_4952474-c53a721a82533a954c29_full.jpg?_hv=2&w=340"  width="65" height="65" alt="" class="uk-border-circle">
+					</div>
+					<div class="uk-width-expand">
+						<h4 class="uk-margin-remove">SWE 632, Group #9 Tech Talk</h4>
+						<i class="uk-text-muted uk-text-small">Presenting on November 14, 2023</i>
+					</div>
+					<div class="uk-width-1-2 uk-width-1-5@m uk-visible@m">
+						<span class="uk-text-primary" data-uk-icon="icon:calendar; ratio: 0.8"></span><span class="uk-text-small uk-text-muted uk-text-bottom"> Initial Release (1.0)</span><br>
+						<span class="uk-text-large uk-text-primary">July 2013</span>
+					</div>
+					<div class="uk-width-1-2 uk-width-1-5@m uk-visible@m">
+						<span class="uk-text-success" data-uk-icon="icon:calendar; ratio: 0.8"></span><span class="uk-text-small uk-text-muted  uk-text-bottom"> Release of 2.0 </span><br>
+						<span class="uk-text-large uk-text-success">Dec 2013</span>
+					</div>
+					<div class="uk-width-1-2 uk-width-1-5@m uk-visible@m">
+						<span class="uk-text-success" data-uk-icon="icon:calendar; ratio: 0.8"></span><span class="uk-text-small uk-text-muted  uk-text-bottom"> Release of 3.0 (extended features)</span><br>
+						<span class="uk-text-large uk-text-success">Jan 2017</span>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- /INFO -->
+		
+		<!-- CONTENT -->
+		<section class="uk-section uk-section-muted">
+			<div class="uk-container">
+				<div class="uk-grid uk-grid-small uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@l uk-grid-match" data-uk-lightbox="toggle:a.uk-position-cover" data-uk-grid>
+					
+					<!-- Slide 1 -->
+					<div>
+						<div class="uk-card uk-card-default uk-card-small">
+							<div class="uk-card-media-top">
+								<div class="uk-inline-clip uk-transition-toggle uk-light">
+									<img src="https://devimages-cdn.apple.com/wwdc-services/articles/images/7543212D-6CBF-496C-A20E-D04E99C3A1DB/2048.jpeg">
+									<div class="uk-transition-fade uk-position-cover uk-overlay uk-overlay-primary uk-flex uk-flex-center uk-flex-middle">
+										<div data-uk-margin class="uk-transition-slide-bottom-small">
+											<span data-uk-icon="icon: plus; ratio: 1.3"></span>
+										</div>
+									</div>
+									<a data-caption="Not Apple's UIKit" href="/apple-uikit-2.png" class="uk-position-cover"></a>
+								</div>
+								
+							</div>
+							<div class="uk-card-header">
+								<div class="uk-grid-small uk-flex uk-flex-middle" data-uk-grid>
+									<div class="uk-width-expand">
+										<h5 class="uk-margin-remove-bottom">Not Apple's UIKit</h5>
+										<p class="uk-text-meta uk-margin-remove"><time datetime="2016-04-01T19:00">Slide 1</time></p>
+									</div>
+									<div class="uk-width-auto">
+										<div class="uk-inline">
+											<a data-uk-icon="icon:more-vertical"></a>
+											<div data-uk-dropdown="mode: click; pos:top-right">
+												<ul class="uk-nav uk-dropdown-nav">
+													<li class="uk-nav-header">Share your image</li>
+													<li><a href="#"><span data-uk-icon="icon: facebook; ratio: 0.9"></span> Facebook</a></li>
+													<li><a href="#"><span data-uk-icon="icon: twitter; ratio: 0.9"></span> Twitter</a></li>
+													<li><a href="#"><span data-uk-icon="icon: instagram; ratio: 0.9"></span> Instagram</a></li>
+													<li><a href="#"><span data-uk-icon="icon: behance; ratio: 0.9"></span> Behance</a></li>
+												</ul>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Slide 2 -->
+					<div>
+						<div class="uk-card uk-card-default uk-card-small">
+							<div class="uk-card-media-top">
+								<div class="uk-inline-clip uk-transition-toggle uk-light">
+									<img src="https://pro.guslyon.fr/static/uikit-ea201e2038c0b8d0533cef8b00308d6f.png">
+									<div class="uk-transition-fade uk-position-cover uk-overlay uk-overlay-primary uk-flex uk-flex-center uk-flex-middle">
+										<div data-uk-margin class="uk-transition-slide-bottom-small">
+											<span data-uk-icon="icon: plus; ratio: 1.3"></span>
+										</div>
+									</div>
+									<a data-caption="GetUIkit" href="css-uikit.png" class="uk-position-cover"></a>
+								</div>
+								
+							</div>
+							<div class="uk-card-header">
+								<div class="uk-grid-small uk-flex uk-flex-middle" data-uk-grid>
+									<div class="uk-width-expand">
+										<h5 class="uk-margin-remove-bottom">YooThemes UIkit</h5>
+										<p class="uk-text-meta uk-margin-remove"><time datetime="2016-04-01T19:00">Slide 2</time></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Slide 3 -->
+					<div>
+						<div class="uk-card uk-card-default uk-card-small">
+							<div class="uk-card-media-top">
+								<div class="uk-inline-clip uk-transition-toggle uk-light">
+									<img src="overview.jpg">
+									<div class="uk-transition-fade uk-position-cover uk-overlay uk-overlay-primary uk-flex uk-flex-center uk-flex-middle">
+										<div data-uk-margin class="uk-transition-slide-bottom-small">
+											<span data-uk-icon="icon: plus; ratio: 1.3"></span>
+										</div>
+									</div>
+									<a data-caption="Overview" href="overview.jpg" class="uk-position-cover"></a>
+								</div>
+								
+							</div>
+							<div class="uk-card-header">
+								<div class="uk-grid-small uk-flex uk-flex-middle" data-uk-grid>
+									<div class="uk-width-expand">
+										<h5 class="uk-margin-remove-bottom">Overview</h5>
+										<p class="uk-text-meta uk-margin-remove"><time datetime="2016-04-01T19:00">Slide 3</time></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Slide 4-->
+					<div>
+						<div class="uk-card uk-card-default uk-card-small">
+							<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow>
+								<ul class="uk-slideshow-items">
+									<li>
+										<img src="https://logovectorseek.com/wp-content/uploads/2019/10/bootstrap-logo-vector.png" alt="" uk-cover>
+									</li>
+									<li>
+										<img src="https://www.heksagon.net/web-design/how-to-create-a-resume-website-using-bulma-css/cover.webp" alt="" uk-cover>
+									</li>
+									<li>
+										<img src="https://images.g2crowd.com/uploads/product/image/social_landscape/social_landscape_7ea162aa14d13c78780696778d45006c/pure-css.png" alt="" uk-cover>
+									</li>
+									<li>
+										<img src="https://cdn.tutsplus.com/cdn-cgi/image/width=640/webdesign/uploads/2014/01/how-they-dit-it-the-foundation-framework-end.png" alt="" uk-cover>
+									</li>
+									<li>
+										<img src="https://semantic-ui.com/images/logo.png" alt="" uk-cover>
+									</li>
+								</ul>
+								<a class="uk-position-center-left uk-position-small uk-hidden-hover" href uk-slidenav-previous uk-slideshow-item="previous"></a>
+								<a class="uk-position-center-right uk-position-small uk-hidden-hover" href uk-slidenav-next uk-slideshow-item="next"></a>
+							</div>
+							<div class="uk-card-header">
+								<div class="uk-grid-small uk-flex uk-flex-middle" data-uk-grid>
+									<div class="uk-width-expand">
+										<h5 class="uk-margin-remove-bottom">Competitors</h5>
+										<p class="uk-text-meta uk-margin-remove"><time datetime="2016-04-01T19:00">Slide 4</time></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Slide 5-->
+					<div>
+						<div class="uk-card uk-card-default uk-card-small">
+							<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="animation: scale">
+								<ul class="uk-slideshow-items">
+									<li>
+										<img src="lumeneo.jpeg" alt="" uk-cover>
+									</li>
+									<li>
+										<img src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000042000/eb9857183290f943fa4a77f7e9ac9711e3251e740dd90dd0ddef97b5cf384ed4" alt="" uk-cover>
+									</li>
+									<li>
+										<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJPbsQPXb3iU7cUDRiGwb5cdsDdsRt7pVDABa2wrmA1A&s" alt="" uk-cover>
+									</li>
+									<li>
+										<img src="mapper.png" alt="" uk-cover>
+									</li>
+									
+								</ul>
+								<a class="uk-position-center-left uk-position-small uk-hidden-hover" href uk-slidenav-previous uk-slideshow-item="previous"></a>
+								<a class="uk-position-center-right uk-position-small uk-hidden-hover" href uk-slidenav-next uk-slideshow-item="next"></a>
+							</div>
+							<div class="uk-card-header">
+								<div class="uk-grid-small uk-flex uk-flex-middle" data-uk-grid>
+									<div class="uk-width-expand">
+										<h5 class="uk-margin-remove-bottom">Who is Using UIkit?</h5>
+										<p class="uk-text-meta uk-margin-remove"><time datetime="2016-04-01T19:00">Slide 5</time></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Slide 6 -->
+					<div>
+						<div class="uk-card uk-card-default uk-card-small">
+							<div class="uk-card-media-top">
+								<div class="uk-inline-clip uk-transition-toggle uk-light">
+									<img src="Why.jpg">
+									<div class="uk-transition-fade uk-position-cover uk-overlay uk-overlay-primary uk-flex uk-flex-center uk-flex-middle">
+										<div data-uk-margin class="uk-transition-slide-bottom-small">
+											<span data-uk-icon="icon: plus; ratio: 1.3"></span>
+										</div>
+									</div>
+									<a data-caption="Why?" href="Why.jpg" class="uk-position-cover"></a>
+								</div>
+								
+							</div>
+							<div class="uk-card-header">
+								<div class="uk-grid-small uk-flex uk-flex-middle" data-uk-grid>
+									<div class="uk-width-expand">
+										<h5 class="uk-margin-remove-bottom">Why?</h5>
+										<p class="uk-text-meta uk-margin-remove"><time datetime="2016-04-01T19:00">Slide 6</time></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Slide 7 -->
+					<div>
+						<div class="uk-card uk-card-default uk-card-small">
+							<div class="uk-card-media-top">
+								<div class="uk-inline-clip uk-transition-toggle uk-light">
+									<img src="Advantages.jpg">
+									<div class="uk-transition-fade uk-position-cover uk-overlay uk-overlay-primary uk-flex uk-flex-center uk-flex-middle">
+										<div data-uk-margin class="uk-transition-slide-bottom-small">
+											<span data-uk-icon="icon: plus; ratio: 1.3"></span>
+										</div>
+									</div>
+									<a data-caption="Advantages" href="Advantages.jpg" class="uk-position-cover"></a>
+								</div>
+								
+							</div>
+							<div class="uk-card-header">
+								<div class="uk-grid-small uk-flex uk-flex-middle" data-uk-grid>
+									<div class="uk-width-expand">
+										<h5 class="uk-margin-remove-bottom">Advantages</h5>
+										<p class="uk-text-meta uk-margin-remove"><time datetime="2016-04-01T19:00">Slide 7</time></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Slide 8 -->
+					<div>
+						<div class="uk-card uk-card-default uk-card-small">
+							<div class="uk-card-media-top">
+								<div class="uk-inline-clip uk-transition-toggle uk-light">
+									<img src="Features.jpg">
+									<div class="uk-transition-fade uk-position-cover uk-overlay uk-overlay-primary uk-flex uk-flex-center uk-flex-middle">
+										<div data-uk-margin class="uk-transition-slide-bottom-small">
+											<span data-uk-icon="icon: plus; ratio: 1.3"></span>
+										</div>
+									</div>
+									<a data-caption="Features" href="Features.jpg" class="uk-position-cover"></a>
+								</div>
+								
+							</div>
+							<div class="uk-card-header">
+								<div class="uk-grid-small uk-flex uk-flex-middle" data-uk-grid>
+									<div class="uk-width-expand">
+										<h5 class="uk-margin-remove-bottom">Features</h5>
+										<p class="uk-text-meta uk-margin-remove"><time datetime="2016-04-01T19:00">Slide 8</time></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- /CONTENT -->
+		<!--FOOTER-->
+		<footer class="uk-section uk-section-default uk-section-small">
+			<div class="uk-container">
+				<p class="uk-text-small uk-text-center">Copyright 2017 - Lorem ipsum dolor sit amet. <a href="https://github.com/zzseba78/Kick-Off">Created by KickOff</a> | Built with <a href="http://getuikit.com" title="Visit UIkit 3 site" target="_blank" data-uk-tooltip><span data-uk-icon="uikit"></span></a></p>
+			</div>
+		</footer>
+		<!--/FOOTER-->
+		<!-- OFFCANVAS -->
+		<div id="offcanvas-nav" data-uk-offcanvas="flip: true; overlay: true">
+			<div class="uk-offcanvas-bar uk-offcanvas-bar-animation uk-offcanvas-slide">
+				<button class="uk-offcanvas-close uk-close uk-icon" type="button" data-uk-close></button>
+				<ul class="uk-nav-default" uk-nav>
+					<li class="uk-active"><a href="#">Active Default Navigation</a></li>
+					<li class="uk-parent">
+						<a href="#">Parent Navigation</a>
+						<ul class="uk-nav-sub">
+							<li><a href="#">Sub Item 1</a></li>
+							<li>
+								<a href="#">Sub Item 2</a>
+								<ul>
+									<li><a href="#">Sub Item 2.1</a></li>
+									<li><a href="#">Sub Item 2.2</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<li class="uk-parent">
+						<a href="#">Parent Navigation 2</a>
+						<ul class="uk-nav-sub">
+							<li><a href="#">Sub Item 1</a></li>
+							<li><a href="#">Sub Item 2</a></li>
+						</ul>
+					</li>
+				</ul>
+
+				<ul class="uk-nav uk-nav-default">			
+					<li class="uk-nav-header">Header</li>
+					<li><a href="#js-options"><span class="uk-margin-small-right uk-icon" data-uk-icon="icon: table"></span> Table Icon</a></li>
+					<li><a href="#"><span class="uk-margin-small-right uk-icon" data-uk-icon="icon: thumbnails"></span> Thumbnail Icon</a></li>
+					<li><a href="#"><span class="uk-margin-small-right uk-icon" data-uk-icon="icon: list"></span> List Icon</a></li>
+					<li class="uk-nav-divider"></li>
+					<li><a href="#"><span class="uk-margin-small-right uk-icon" data-uk-icon="icon: grid"></span> Grid Icon</a></li>
+				</ul>
+				<h3></h3>
+				<p>A few of the different kind of navigation bars/styles UIkit has.</p>
+			</div>
+		</div>
+		<!-- /OFFCANVAS -->
+		<!-- MODALS -->
+		<div id="progress-bar" class="uk-flex-top" data-uk-modal>
+			<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+				<button class="uk-modal-close-default" type="button" data-uk-close></button>
+				<h3><b>Thanks for Listening!</b></h3>
+				<h4>(hopefully you appluad during this loading bar 
+					<span data-uk-icon="icon:happy"></span>
+					)
+				</h4>
+				<progress id="js-progressbar" class="uk-progress" value="0" max="100"></progress>
+				<h3><b>Questions?</b></h3>
+			</div>
+		</div>
+
+		<div id="modal-center" class="uk-flex-top" data-uk-modal>
+			<div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+				<button class="uk-modal-close-default" type="button" data-uk-close></button>
+				<div>
+					<h4>Group #9 Team Members</h4>
+					<ul class="uk-list uk-list-circle">
+						<li>Vaishnavi Priya Chennu​</li>
+						<li>Mariela Jardon</li>
+						<li>Mackenzie High​</li>
+						<li>Gangadaran Kameswaran​​</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div id="modal-media-vimeo" class="uk-flex-top" data-uk-modal>
+			<div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical">
+				<button class="uk-modal-close-outside" type="button" data-uk-close></button>
+				<iframe src="//player.vimeo.com/video/87816089" width="500" height="281" data-uk-video></iframe>
+			</div>
+		</div>
+		<!-- /MODALS -->
+		
+		<!-- JS FILES -->
+		<script src="https://cdn.jsdelivr.net/npm/uikit@latest/dist/js/uikit.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/uikit@latest/dist/js/uikit-icons.min.js"></script>
+		<script src="/index.js"></script>
+	</body>
+</html>
