@@ -54,8 +54,9 @@
                                         <input class="uk-checkbox" type="checkbox" v-model="allSelected" @click="selectAll()" style="margin-top: 0px;"/>
                                     </th>
                                     <th class="uk-width-2-3">Route</th>
-                                    <th class="uk-width-1-6">Color</th>
                                     <th class="uk-width-1-6">Actions</th>
+                                    <th class="uk-width-1-6">Color</th>
+                                    
                                 <tr>
                             </thead>
                             <tbody>
@@ -67,11 +68,7 @@
                                         <p class="uk-text-truncate" :title="dataset.name">{{ dataset.name }}</p>
                                     </td>
 
-                                    <td>
-                                        <input type="color" v-model="dataset.color" @input="updateMapAfterColorChange()"/>
-                                    </td>
-
-                                    <td>
+                                    <td class="uk-flex uk-flex-between uk-flex-middle">
                                         <!-- Remove for HW6.
                                         <a uk-icon="location" uk-tooltip="VIEW MAP" aria-label="Open the map view." uk-switcher-item="1"
                                                 v-on:click="openMap()"></a>
@@ -85,6 +82,12 @@
                                             href="#delete_dataset_modal"
                                             uk-toggle v-on:click="openDeleteDataSet(dataset.name, dataset.uuid)"></a>
                                     </td>
+                                    
+                                    <td>
+                                        <input type="color" v-model="dataset.color" @input="updateMapAfterColorChange()"/>
+                                    </td>
+
+                                    
                                 </tr>
                             <tbody>
                         </table>
