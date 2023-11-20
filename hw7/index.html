@@ -33,7 +33,7 @@
         integrity="sha512-8pbzenDolL1l5OPSsoURCx9TEdMFTaeFipASVrMYKhuYtly+k3tcsQYliOEKTmuB1t7yuzAiVo+yd7SJz+ijFQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <link rel="stylesheet" href="/hw6/index.css" />
+    <link rel="stylesheet" href="index.css" />
 
 </head>
 
@@ -51,9 +51,16 @@
                             <thead>
                                 <tr>
                                     <th class="uk-width-1-6">Plot
-                                        <input class="uk-checkbox" type="checkbox" v-model="allSelected" @click="selectAll()" style="margin-top: 0px;"/>
+                                        <input class="uk-checkbox" type="checkbox" v-model="allSelected" @click="selectAll()" style="margin-top: 0px;" uk-tooltip="Select All"/>
                                     </th>
-                                    <th class="uk-width-2-3">Route</th>
+                                    <th class="uk-width-2-3">Route
+                                        <a uk-icon="arrow-up" uk-tooltip="Sort Ascending"
+                                            aria-label="Sort routes in ascending order by name."
+                                            v-on:click="sortAscending"></a>
+                                        <a uk-icon="arrow-down" uk-tooltip="Sort Descending"
+                                            aria-label="Sort routes in descending order by name."
+                                            v-on:click="sortDescending"></a>
+                                    </th>
                                     <th class="uk-width-1-6">Actions</th>
                                     <th class="uk-width-1-6">Color</th>
                                     
@@ -108,7 +115,7 @@
                         </div>
                         <div>
                             <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #map_help_modal">
-                                <span uk-icon="info" uk-tooltip="HELP"></span></a>
+                                <span uk-icon="question" uk-tooltip="HELP"></span></a>
                         </div>
                     </div>
                     <h4 class="uk-text-center uk-padding-remove uk-margin-remove">{{ current_map.name }}</h4>
@@ -187,43 +194,50 @@
         
         <div id="map_help_modal" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
-                <h2 class="uk-modal-title">Help Documentation</h2>
-                <b>1. Adding a Data Set:</b>
-                <ul>
-                    <li>Click the ( <a uk-icon="plus"></a> ) button.</li>
-                    <li>Upload a JSON file to create a new data set. You can add multiple .json files at once, and the application will auto-populate data set names with the corresponding file names.</li>
-                </ul>
+                <div class="uk-text-bold uk-text-center">
+                    Help Documentation
+                    <br>
+                </div>
+                <div uk-overflow-auto>
+                    <b>1. Adding a Data Set:</b>
+                    <ul>
+                        <li>Click the ( <a uk-icon="plus"></a> ) button.</li>
+                        <li>Upload a JSON file to create a new data set. You can add multiple .json files at once, and the application will auto-populate data set names with the corresponding file names.</li>
+                    </ul>
 
-                <b>2. Renaming a Data Set:</b>
-                <ul>
-                    <li>Click the pencil icon (<a uk-icon="pencil" class="rename" uk-tooltip="RENAME"></a>) next to a data set's name.</li>
-                    <li>Enter the new name for the data set and click "RENAME" to save the changes.</li>
-                </ul>
+                    <b>2. Renaming a Data Set:</b>
+                    <ul>
+                        <li>Click the pencil icon (<a uk-icon="pencil" class="rename" uk-tooltip="RENAME"></a>) next to a data set's name.</li>
+                        <li>Enter the new name for the data set and click "RENAME" to save the changes.</li>
+                    </ul>
 
-                <b>3. Deleting a Data Set:</b>
-                <ul>
-                    <li>To delete a data set, click the trash can icon (<a uk-icon="trash" class="red delete" uk-tooltip="DELETE"></a>) next to the data set.</li>
-                    <li>Confirm the deletion when prompted to permanently remove the data set.</li>
-                </ul>
+                    <b>3. Deleting a Data Set:</b>
+                    <ul>
+                        <li>To delete a data set, click the trash can icon (<a uk-icon="trash" class="red delete" uk-tooltip="DELETE"></a>) next to the data set.</li>
+                        <li>Confirm the deletion when prompted to permanently remove the data set.</li>
+                    </ul>
 
-                <b>4. Viewing a Map:</b>
-                <ul>
-                    <li>Click the data set name or the map icon (<a uk-icon="location" uk-tooltip="VIEW MAP"></a>) to view the map associated with that data set.</li>
-                </ul>
+                    <b>4. Viewing a Map:</b>
+                    <ul>
+                        <li>Click the data set name or the map icon (<a uk-icon="location" uk-tooltip="VIEW MAP"></a>) to view the map associated with that data set.</li>
+                    </ul>
 
-                <b>5. Taking a Screenshot:</b>
-                <ul>
-                    <li>Click the camera icon ( <a uk-icon="camera" uk-tooltip="SCREENSHOT"></a> ) to capture a screenshot of the current map view.</li>
-                </ul>
+                    <b>5. Taking a Screenshot:</b>
+                    <ul>
+                        <li>Click the camera icon ( <a uk-icon="camera" uk-tooltip="SCREENSHOT"></a> ) to capture a screenshot of the current map view.</li>
+                    </ul>
 
-                <b>6. Getting a Permalink:</b>
-                <ul>
-                    <li>Click the link icon (<a uk-icon="link" uk-tooltip="PERMALINK"></a>) to obtain a permalink for the map's current view. You can copy and share this link with others.</li>
-                </ul>
-
+                    <b>6. Getting a Permalink:</b>
+                    <ul>
+                        <li>Click the link icon (<a uk-icon="link" uk-tooltip="PERMALINK"></a>) to obtain a permalink for the map's current view. You can copy and share this link with others.</li>
+                    </ul>
+                </div>
+                <br>
+                <div class="uk-flex uk-flex-right">
+                    <button class="uk-modal-close uk-button uk-button-danger" type="button">CLOSE</button>
+                </div>
             </div>
         </div>
-        
     </div>
 
     <div class="uk-width-1-6"></div>

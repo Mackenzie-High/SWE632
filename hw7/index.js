@@ -193,9 +193,21 @@ VueApp.methods.createDataSet = async function (event) {
       }
 
       const uuid = uuidV4();
-      const row = { uuid: uuid, selected: true, name: upload.name, signature: upload.signature, color: VueApp.methods.generateColor()};
-      remodel.datasets[uuid] = row;
+      const rank = Object.keys(remodel.datasets).length;
+      const row = { uuid: uuid, selected: true, name: upload.name, signature: upload.signature, color: VueApp.methods.generateColor(), rank: rank };
       console.log(row);
+
+      // This is a little bit hacky.
+      // The intent is to prepend the dataset onto the table,
+      // instead of appending the dataset, so it shows up at
+      // the top of the table closest the add addset button.
+      const old = remodel.datasets;
+      remodel.datasets = { };
+      remodel.datasets[uuid] = row;
+      for (key in old)
+      {
+        remodel.datasets[key] = old[key];
+      }
 
       geoJsonDataObject[uuid] = upload.geoJsonData;
     }
@@ -286,6 +298,56 @@ VueApp.methods.screenshot = function (event) {
     link.click();
   }
   download("data:text/html,HelloWorld!", "screenshot.png");
+};
+
+VueApp.methods.sortAscending = function (event) {
+  console.log("Sort Ascending");
+
+  // This is a little bit hacky.
+  const lookup = { }
+  const names = [];
+  for (uuid in remodel.datasets)
+  {
+    dataset = remodel.datasets[uuid];
+    name = dataset.name;
+    names.push(name);
+    lookup[name] = dataset;
+  }
+
+  names.sort();
+
+  remodel.datasets = { };
+
+  for (name of names)
+  {
+    dataset = lookup[name];
+    remodel.datasets[dataset.uuid] = lookup[name];
+  }
+};
+
+VueApp.methods.sortDescending = function (event) {
+  console.log("Sort Descending");
+
+  // This is a little bit hacky.
+  const lookup = { }
+  const names = [];
+  for (uuid in remodel.datasets)
+  {
+    dataset = remodel.datasets[uuid];
+    name = dataset.name;
+    names.push(name);
+    lookup[name] = dataset;
+  }
+
+  names.sort();
+
+  remodel.datasets = { };
+
+  for (name of names.toReversed())
+  {
+    dataset = lookup[name];
+    remodel.datasets[dataset.uuid] = lookup[name];
+  }
 };
 
 // Go for launch!
