@@ -42,10 +42,14 @@
         <div class="uk-container">
             <div class="uk-grid uk-height-viewport">
                 <div class="uk-width-1-2">
-                    <a class="uk-button uk-button-default" uk-toggle="target: #add_dataset_modal"
-                        v-on:click="openCreateDataSet"><span uk-icon="plus" uk-tooltip="Click this button to add a new data set. You can upload .json files to create datasets."></span></a>
-
-
+                    <div id="header-rows" class="uk-flex uk-flex-row uk-flex-between">
+                        <div>
+                            <a class="uk-button uk-button-default" uk-toggle="target: #add_dataset_modal"
+                                v-on:click="openCreateDataSet">
+                                <span uk-icon="plus" uk-tooltip="Click this button to add a new data set. You can upload .json files to create datasets."></span>
+                            </a>
+                        </div>
+                    </div>
                     <div class="custom-table">
                         <table class="uk-table uk-table-striped uk-table-hover custom-table">
                             <thead>
@@ -67,6 +71,9 @@
                                 <tr>
                             </thead>
                             <tbody>
+                                <tr v-if="checkDataSets()">
+                                    <td colspan="5">No data available. Please add datasets.</td>
+                                </tr>
                                 <tr v-for="(dataset, key) in datasets">
                                     <td>
                                         <input class="uk-checkbox" type="checkbox" v-model="dataset.selected" @input="updateMapAfterSelection(dataset.uuid)"/>
@@ -102,7 +109,7 @@
                 </div>
 
                 <div class="uk-width-1-2">
-                    <div class="uk-flex uk-flex-row uk-flex-between uk-padding-remove uk-margin-remove">
+                    <div id="header-rows" class="uk-flex uk-flex-row uk-flex-between">
                         <div>
                             <a class="uk-button uk-button-default uk-button-default"><span uk-icon="camera"
                                     uk-tooltip="SCREENSHOT" v-on:click="screenshot"></span></a>
@@ -114,14 +121,11 @@
                             </a>
                         </div>
                         <div>
-                            <a class="uk-button uk-button-default uk-align-right" uk-toggle="target: #map_help_modal">
+                            <a class="uk-button uk-button-default" uk-toggle="target: #map_help_modal">
                                 <span uk-icon="question" uk-tooltip="HELP"></span></a>
                         </div>
                     </div>
-                    <h4 class="uk-text-center uk-padding-remove uk-margin-remove">{{ current_map.name }}</h4>
-                    <div class="uk-height-1-1 uk-width-1-1">
-                        <div id="map" class="uk-height-1-1 uk-width-1-1"></div>
-                    </div>
+                    <div id="map" class="uk-height-1-1 uk-width-1-1"></div>
                 </div>
             </div>
         </div>

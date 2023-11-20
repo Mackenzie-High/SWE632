@@ -5,6 +5,10 @@
     color: red;
 }
 
+#header-rows {
+    margin-bottom: 15px;
+}
+
 #map {
     width: 100%;
     max-height: calc(100vh - 150px); /* Adjust 150px as needed to account for other elements on your page */
@@ -21,6 +25,7 @@
 
 .uk-container {
     height: 100%;
+    max-width: 100%;
 }
 
 /* Added CSS styles for documentation */

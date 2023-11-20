@@ -159,6 +159,10 @@ VueApp.methods.generateColor = function() {
   return hexColor;
 };
 
+VueApp.methods.checkDataSets = function() {
+  return Object.keys(remodel.datasets).length === 0;
+}
+
 VueApp.methods.createDataSet = async function (event) {
   try {
     console.log("Create DataSet");
