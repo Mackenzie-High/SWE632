@@ -39,7 +39,7 @@
 
 <body>
     <div id="app">
-        <div class="uk-container">
+        <div class="uk-container uk-overflow-auto">
             <div class="uk-grid uk-height-viewport">
                 <div class="uk-width-1-2@m">
                     <div id="header-rows" class="uk-flex uk-flex-row uk-flex-between">
@@ -50,7 +50,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="custom-table">
+                    <div class="custom-table uk-overflow-auto">
                         <table class="uk-table uk-table-striped uk-table-hover custom-table">
                             <thead>
                                 <tr>
@@ -71,7 +71,7 @@
                                 <tr>
                             </thead>
                             <tbody>
-                                <tr v-if="checkDataSets()">
+                                <tr v-if="datasets.length === 0">
                                     <td colspan="5">No data available. Please add datasets.</td>
                                 </tr>
                                 <tr v-for="(dataset, key) in datasets">
