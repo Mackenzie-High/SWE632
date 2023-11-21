@@ -9,14 +9,10 @@
     margin-bottom: 15px;
 }
 
-
-
 #map {
     width: 100%;
-    min-height: 400px;
     max-height: calc(100vh - 150px); /* Adjust 150px as needed to account for other elements on your page */
     height: 100%;
-    margin: 0;
 }
 
 .custom-table {
